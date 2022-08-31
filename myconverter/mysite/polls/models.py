@@ -1,5 +1,5 @@
 import uuid
-
+# https://www.youtube.com/watch?v=fsVY66QBhwM
 from django.db import models
 import datetime
 from django.utils import timezone
@@ -22,6 +22,11 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
+class Fileupl(models.Model):
+    filename = models.CharField(max_length=200)
+    file_path = models.FileField(_('File'), upload_to='files/')
+    def __str__(self):
+        return self.filename
 
 
 class File(TimeStampedModel):
