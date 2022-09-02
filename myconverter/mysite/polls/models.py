@@ -56,7 +56,7 @@ class FilmWork(TimeStampedModel):
         ordering = ["title"]
 
     def __str__(self):
-        return self.file_path
+        return f'{self.file_path}'
 
 
 class FileFilmWork(models.Model):
