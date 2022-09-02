@@ -29,6 +29,7 @@ class Fileupl(TimeStampedModel):
     codec_name = models.CharField(_('Codec'), max_length=100, null=True, blank=True)
     display_aspect_ratio = models.CharField(_('Display Aspect Ratio'), max_length=100, null=True, blank=True)
     fps = models.IntegerField(_('FPS'), null=True, blank=True)
+    film = models.ForeignKey('FilmWork',  related_name='film', null=True, verbose_name="Фильм", on_delete=models.CASCADE)
     #
     class Meta:
         verbose_name = _('Fileupl')
@@ -45,7 +46,7 @@ class FilmWork(TimeStampedModel):
     title = models.CharField(_('Name'), max_length=255, null=True,)
     certificate = models.TextField(_('Certificate'), blank=True)
     file_path = models.FileField(_('Original file'), upload_to='film_works/')
-    files = models.ManyToManyField('Fileupl', through='FileFilmWork', related_name='filmworks')
+    # files = models.ManyToManyField('Fileupl', through='FileFilmWork', related_name='filmworks')
 
     class Meta:
         verbose_name = _('Film')
@@ -55,7 +56,7 @@ class FilmWork(TimeStampedModel):
         ordering = ["title"]
 
     def __str__(self):
-        return self.title
+        return self.file_path
 
 
 class FileFilmWork(models.Model):
