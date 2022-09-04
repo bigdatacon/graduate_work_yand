@@ -29,7 +29,7 @@ class Fileupl(TimeStampedModel):
     codec_name = models.CharField(_('Codec'), max_length=100, null=True, blank=True)
     display_aspect_ratio = models.CharField(_('Display Aspect Ratio'), max_length=100, null=True, blank=True)
     fps = models.IntegerField(_('FPS'), null=True, blank=True)
-    film = models.ForeignKey('FilmWork',  related_name='file', null=True, verbose_name="Фильм", on_delete=models.CASCADE)
+    film = models.ForeignKey('FilmWork',  related_name='files', null=True, verbose_name="Фильм", on_delete=models.CASCADE)
     #
     class Meta:
         verbose_name = _('Fileupl')
