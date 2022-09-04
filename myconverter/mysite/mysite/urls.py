@@ -1,7 +1,7 @@
 
 from django.urls import include, path
 from rest_framework import routers
-from mysite.polls import views
+from polls import views
 
 router = routers.DefaultRouter()
 router.register(r'fileupload', views.FileuplViewSet)
