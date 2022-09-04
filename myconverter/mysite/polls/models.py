@@ -49,8 +49,8 @@ class FilmWork(TimeStampedModel):
     # files = models.ManyToManyField('Fileupl', through='FileFilmWork', related_name='filmworks')
 
     class Meta:
-        verbose_name = _('Film')
-        verbose_name_plural = _('Films')
+        verbose_name = _('File')
+        verbose_name_plural = _('Files')
         # managed = False
         # db_table = f'"content"."film_work"'
         ordering = ["title"]
