@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from .models import FilmWork, Fileupl
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import FileuplSerializer
+from .serializers import FileuplSerializer, FilmWorkSerializer
 
 
 class FileuplViewSet(viewsets.ModelViewSet):
@@ -12,6 +12,15 @@ class FileuplViewSet(viewsets.ModelViewSet):
     """
     queryset = Fileupl.objects.all()
     serializer_class = FileuplSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class FilmWorkViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = FilmWork.objects.all()
+    serializer_class = FilmWorkSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 

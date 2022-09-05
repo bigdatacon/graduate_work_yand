@@ -5,6 +5,7 @@ from polls import views
 
 router = routers.DefaultRouter()
 router.register(r'fileupload', views.FileuplViewSet)
+router.register(r'filmwork', views.FilmWorkViewSet)
 
 
 # Wire up our API using automatic URL routing.
