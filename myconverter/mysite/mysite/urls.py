@@ -23,6 +23,7 @@ from django.contrib import admin
 
 urlpatterns = [
     path('polls/question/', include('polls.urls')),
+    path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))

@@ -11,7 +11,7 @@ from rest_framework.parsers import JSONParser
 
 
 @csrf_exempt
-def snippet_list(request):
+def question_list(request):
     """
     List all code snippets, or create a new snippet.
     """
