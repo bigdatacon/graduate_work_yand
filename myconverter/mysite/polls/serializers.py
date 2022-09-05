@@ -1,5 +1,11 @@
-from .models import Fileupl, FilmWork
+from .models import Fileupl, FilmWork, Question
 from rest_framework import serializers
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ['question_text']
+
 
 class FileuplSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -9,5 +15,4 @@ class FileuplSerializer(serializers.HyperlinkedModelSerializer):
 class FilmWorkSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = FilmWork
-
         fields = ['id', 'title', 'certificate', 'file_path']
