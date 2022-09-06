@@ -8,7 +8,8 @@ from .serializers import FileuplSerializer, FilmWorkSerializer, QuestionSerializ
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
-
+#http http://127.0.0.1:8000/polls/question/
+#http --form POST http://127.0.0.1:8000/polls/question/ question_text="print test"
 
 @csrf_exempt
 def question_list(request):
