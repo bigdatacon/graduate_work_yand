@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
 #http http://127.0.0.1:8000/polls/question/
+#http http://127.0.0.1:8000/polls/question/2
 #http --form POST http://127.0.0.1:8000/polls/question/ question_text="print test"
 
 @csrf_exempt
