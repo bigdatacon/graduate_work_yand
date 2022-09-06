@@ -8,6 +8,7 @@ from model_utils.models import TimeStampedModel
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
+    file_path = models.FileField(_('FileQuestion'), upload_to='files/', null=True, blank=True)
     # pub_date = models.DateTimeField('date published')
     def __str__(self):
         return self.question_text
