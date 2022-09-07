@@ -61,6 +61,7 @@ def question_detail(request, pk):
 #создаю класс на базе ViewSet чтобы можно было писать видео файлы
 class QuestionViewSet(viewsets.ModelViewSet):
     model = Question
+    queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
