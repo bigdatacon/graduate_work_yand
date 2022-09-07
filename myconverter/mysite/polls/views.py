@@ -71,7 +71,7 @@ class FileuplViewSet(viewsets.ModelViewSet):
     """
     queryset = Fileupl.objects.all()
     serializer_class = FileuplSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class FilmWorkViewSet(viewsets.ModelViewSet):
@@ -80,7 +80,7 @@ class FilmWorkViewSet(viewsets.ModelViewSet):
     """
     queryset = FilmWork.objects.all()
     serializer_class = FilmWorkSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 def index(request):

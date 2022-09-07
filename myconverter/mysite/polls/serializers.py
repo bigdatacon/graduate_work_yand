@@ -7,12 +7,12 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ['question_text', 'id', 'file_path']
 
 
-class FileuplSerializer(serializers.HyperlinkedModelSerializer):
+class FileuplSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fileupl
         fields = ['id', 'file_path', 'resolution', 'codec_name', 'film']
 
-class FilmWorkSerializer(serializers.HyperlinkedModelSerializer):
+class FilmWorkSerializer(serializers.ModelSerializer):
     class Meta:
         model = FilmWork
         fields = ['id', 'title', 'certificate', 'file_path']
