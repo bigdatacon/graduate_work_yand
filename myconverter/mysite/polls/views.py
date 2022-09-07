@@ -58,6 +58,11 @@ def question_detail(request, pk):
         question.delete()
         return HttpResponse(status=204)
 
+#создаю класс на базе ViewSet чтобы можно было писать видео файлы
+class QuestionViewSet(viewsets.ModelViewSet):
+    model = Question
+    serializer_class = QuestionSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 class FileuplViewSet(viewsets.ModelViewSet):
     """

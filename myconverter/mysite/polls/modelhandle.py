@@ -10,5 +10,5 @@ def get_data_from_model(modelname):
 
 if __name__ == '__main__':
     request = 'http://127.0.0.1:8000/polls/question/ question_text="print test"'
-    request_2 = '"http://127.0.0.1:8000/polls/question/3/", json={'question_text': "New text"}'
+    # request_2 = '"http://127.0.0.1:8000/polls/question/3/", json={'question_text': "New text"}'
     question_list(request)
