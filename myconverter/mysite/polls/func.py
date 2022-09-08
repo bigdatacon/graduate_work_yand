@@ -1,26 +1,15 @@
 import requests
 from pathlib import Path
+import os
 
-#без функции
-
-# path = 'C:\Yand_final_sprint\myconverter\mysite\files'
-path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files'
-# path2 = fr"{path}".replace('\\','\\\\')
-# print(path, path2, path2==path)
-
-files = []
-for p in Path(path).rglob('*'):
-    i = 1
-    print(f' {i:} eto p : {str(p)}, type: {type(str(p))}')
-    files.append(str(p.parent)+p.name)
-    file_path = str(p.parent)+p.name
-    ans_file = requests.post("http://127.0.0.1:8000/filmwork/",
-                             {'title': f"test_api_{i}", 'certificate': f"test_api_{i}"},
-                             files={'file_path': file_path})
-    print(f"Answer is with load_file_to_model {ans_file.status_code}: {ans_file.json()}")
-    i += 1
-
-
+def replace_slash(path):
+    path_list = path.split("\\")
+    new_path = ''
+    for i in path_list:
+        # print(f' eto i : {i}')
+        new_path += str(i.replace(' ', '').replace('', '\\f')) + str('\\\\')
+        # print(f'here new_path in cycle: {new_path}')
+    return new_path[:-2]
 
 def load_file_to_model(path):
     #get path for all files in path directory
@@ -30,10 +19,11 @@ def load_file_to_model(path):
         files.append(str(p.parent) + p.name)
 
     #write file to model
-    # print(f' start write : {files}')
+    print(f' start write : {files}')
     try:
         for file in files:
-            # print(str(file.replace("\\","\\\\")))
+            print(f' eto file : ')
+            print(str(file))
             i = 1
             fd = open(str(file), "rb")
             # print(f' etp fd : {fd}, eto str(file) : {str(file)}')
@@ -49,8 +39,9 @@ def load_file_to_model(path):
 
 
 if __name__ == '__main__':
-    path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files'
+    path = 'C:\Yand_final_sprint\myconverter\mysite\files'
     ## Функция не работает
+    path = replace_slash(path)
     # load_file_to_model(path)
 
     files = []
