@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import include, path, reverse
 from rest_framework.test import APITestCase, URLPatternsTestCase
 from rest_framework import status
+from .models import Question
 # from mysite.urls.py import  router
 #https://www.django-rest-framework.org/api-guide/testing/
 
@@ -33,4 +34,14 @@ class ConnectionTests(APITestCase):
         response = self.client.get('/polls/question/', format= 'json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # self.assertEqual(len(response.data), 1)
+
+    def test_post_data(self):
+        """
+        Ensure we can create a new object in model .
+        """
+        fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
+        data = {'question_text': 'DabApps', 'files': {'file_path': fd}}
+        response = self.client.post('/polls/question/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Question.objects.get().question_text, 'DabApps')
 
