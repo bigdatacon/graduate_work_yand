@@ -15,19 +15,21 @@ assert response.status_code == 200
 
 
 class ConnectionTests(APITestCase, URLPatternsTestCase):
-    urlpatterns = [
-        # path('api/', include('api.urls')),
-        # path('', include(router.urls)),
-        path('polls/', include('polls.urls')),
-    ]
+    # urlpatterns = [
+    #     # path('api/', include('api.urls')),
+    #     # path('', include(router.urls)),
+    #     path('polls/', include('polls.urls')),
+    # ]
 
     def test_connection(self):
         """
         Ensure we can create a new account object.
         """
         # url = reverse('account-list')
-        url = reverse('polls')
-        response = self.client.get(url, format='json')
+        # url = reverse('polls')
+        #
+        # response = self.client.get(url, format='json')
+        response = self.client.get('/polls/questions/', format= 'json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # self.assertEqual(len(response.data), 1)
 
