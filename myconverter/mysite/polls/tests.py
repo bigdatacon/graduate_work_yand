@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.urls import include, path, reverse
 from rest_framework.test import APITestCase, URLPatternsTestCase
-from mysite.urls.py import  router
+from rest_framework import status
+# from mysite.urls.py import  router
 #https://www.django-rest-framework.org/api-guide/testing/
 
 #Проверка что можно подключится к странице и получить статус код = HTTP_200_OK
@@ -13,14 +14,14 @@ response = client.get('http://127.0.0.1:8000/polls/')
 assert response.status_code == 200
 
 
-class AccountTests(APITestCase, URLPatternsTestCase):
+class ConnectionTests(APITestCase, URLPatternsTestCase):
     urlpatterns = [
         # path('api/', include('api.urls')),
         # path('', include(router.urls)),
         path('polls/', include('polls.urls')),
     ]
 
-    def test_create_account(self):
+    def test_connection(self):
         """
         Ensure we can create a new account object.
         """
