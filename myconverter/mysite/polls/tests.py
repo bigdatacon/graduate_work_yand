@@ -14,7 +14,8 @@ response = client.get('http://127.0.0.1:8000/polls/')
 assert response.status_code == 200
 
 
-class ConnectionTests(APITestCase, URLPatternsTestCase):
+# class ConnectionTests(APITestCase, URLPatternsTestCase):
+class ConnectionTests(APITestCase):
     # urlpatterns = [
     #     # path('api/', include('api.urls')),
     #     # path('', include(router.urls)),
@@ -29,7 +30,7 @@ class ConnectionTests(APITestCase, URLPatternsTestCase):
         # url = reverse('polls')
         #
         # response = self.client.get(url, format='json')
-        response = self.client.get('/polls/questions/', format= 'json')
+        response = self.client.get('/polls/question/', format= 'json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # self.assertEqual(len(response.data), 1)
 
