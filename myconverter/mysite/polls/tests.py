@@ -33,15 +33,8 @@ class ConnectionTests(APITestCase):
         """
         Ensure we can get object by id from table
         """
-        factory = APIRequestFactory()
-        user = FilmWork.objects.get(id='8f47c55a-e16a-42e5-a9f9-188fec5ed5de')
-        view = FilmWorkViewSet.as_view()
-
-        # Make an authenticated request to the view...
-        request = factory.get('/filmwork/')
-        force_authenticate(request, user=user)
-        response = view(request)
-        print(f'here response in test_connection_by_id : {response}')
+        response = requests.get("http://127.0.0.1:8000/filmwork/8f47c55a-e16a-42e5-a9f9-188fec5ed5de")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_data(self):
         """
@@ -52,7 +45,7 @@ class ConnectionTests(APITestCase):
         response = self.client.post('/polls/question/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Question.objects.get().question_text, 'DabApps')
-
+    #
     def test_post_many_files(self):
         """
         Ensure we can create many new objects in model by loading many files from path.
