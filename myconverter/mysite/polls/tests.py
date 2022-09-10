@@ -54,6 +54,9 @@ class ConnectionTests(APITestCase):
         self.assertEqual(Question.objects.get().question_text, 'DabApps')
 
     def test_post_many_files(self):
+        """
+        Ensure we can create many new objects in model by loading many files from path.
+        """
         path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files'
         files = []
         i = 1
