@@ -45,6 +45,19 @@ class ConnectionTests(APITestCase):
         response = self.client.post('/polls/question/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Question.objects.get().question_text, 'DabApps')
+
+    def test_post_delete_data(self):
+        fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
+        response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
+                                 files={'file_path': fd})
+        # print(f"Answer is {response.status_code}: {response.json()},  id : {response.json().get('id')}")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        # Answer is 201:
+        id = response.json().get('id')
+        response = requests.delete(f"http://127.0.0.1:8000/filmwork/{id}")
+        # print(f"Answer is {response.status_code}")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
     #
     def test_post_many_files(self):
         """
