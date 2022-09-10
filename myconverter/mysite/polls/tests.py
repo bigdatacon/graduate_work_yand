@@ -6,6 +6,8 @@ from .models import Question, FilmWork, Fileupl
 from  .views import FilmWorkViewSet
 # from mysite.urls.py import  router
 from rest_framework.test import force_authenticate, APIRequestFactory
+from pathlib import Path
+import requests
 
 #https://www.django-rest-framework.org/api-guide/testing/
 #, URLPatternsTestCase
@@ -40,8 +42,7 @@ class ConnectionTests(APITestCase):
         force_authenticate(request, user=user)
         response = view(request)
         print(f'here response in test_connection_by_id : {response}')
-    #
-    #
+
     def test_post_data(self):
         """
         Ensure we can create a new object in model .
@@ -52,3 +53,19 @@ class ConnectionTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Question.objects.get().question_text, 'DabApps')
 
+    def test_post_many_files(self):
+        path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files'
+        files = []
+        i = 1
+        for p in Path(path).rglob('*'):
+            print(f' {i:} eto p : {str(p)}, type: {type(str(p))}')
+
+            file_path = str(p.parent) + p.name
+            print(f'eto file_path :')
+            print(file_path)
+            response = requests.post("http://127.0.0.1:8000/filmwork/",
+                                     {'title': f"test_api_{i}", 'certificate': f"test_api_{i}"},
+                                     files={'file_path': file_path})
+            print(f"Answer is with load_file_to_model {response.status_code}: {response.json()}")
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            i += 1

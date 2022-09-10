@@ -1,6 +1,6 @@
 import requests
-from .models import FilmWork
-from .views import FilmWorkViewSet
+# from .models import FilmWork
+# from .views import FilmWorkViewSet
 # print("Getting the list of all questions")
 # ans = requests.get("http://127.0.0.1:8000/polls/question/")
 # print(f"Answer is {ans.status_code}: {ans.json()}")
@@ -34,14 +34,14 @@ ans_file = requests.get("http://127.0.0.1:8000/filmwork/", {'id': '8f47c55a-e16a
 print(f"Answer is {ans_file.status_code}: {ans_file.json()}")
 
 #Пробую пример с гет запросом из теории
-from rest_framework.test import force_authenticate, APIRequestFactory
-
-
-factory = APIRequestFactory()
-user = FilmWork.objects.get(id='8f47c55a-e16a-42e5-a9f9-188fec5ed5de')
-view = FilmWorkViewSet.as_view()
-
-# Make an authenticated request to the view...
-request = factory.get('/filmwork/')
-force_authenticate(request, user=user)
-response = view(request)
+# from rest_framework.test import force_authenticate, APIRequestFactory
+#
+#
+# factory = APIRequestFactory()
+# user = FilmWork.objects.get(id='8f47c55a-e16a-42e5-a9f9-188fec5ed5de')
+# view = FilmWorkViewSet.as_view()
+#
+# # Make an authenticated request to the view...
+# request = factory.get('/filmwork/')
+# force_authenticate(request, user=user)
+# response = view(request)
