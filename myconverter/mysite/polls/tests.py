@@ -2,27 +2,19 @@ from django.test import TestCase
 from django.urls import include, path, reverse
 from rest_framework.test import APITestCase, URLPatternsTestCase
 from rest_framework import status
-from .models import Question
+from .models import Question, FilmWork, Fileupl
+from  .views import FilmWorkViewSet
 # from mysite.urls.py import  router
+from rest_framework.test import force_authenticate, APIRequestFactory
+
 #https://www.django-rest-framework.org/api-guide/testing/
-
-#Проверка что можно подключится к странице и получить статус код = HTTP_200_OK
-
-from rest_framework.test import RequestsClient
-client = RequestsClient()
-# response = client.get('http://testserver/users/')
-response = client.get('http://127.0.0.1:8000/polls/')
-assert response.status_code == 200
-
-
-# class ConnectionTests(APITestCase, URLPatternsTestCase):
+#, URLPatternsTestCase
 class ConnectionTests(APITestCase):
     # urlpatterns = [
     #     # path('api/', include('api.urls')),
     #     # path('', include(router.urls)),
     #     path('polls/', include('polls.urls')),
     # ]
-
     def test_connection(self):
         """
         Ensure we can create a new account object.
@@ -35,6 +27,21 @@ class ConnectionTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # self.assertEqual(len(response.data), 1)
 
+    def test_connection_by_id(self):
+        """
+        Ensure we can get object by id from table
+        """
+        factory = APIRequestFactory()
+        user = FilmWork.objects.get(id='8f47c55a-e16a-42e5-a9f9-188fec5ed5de')
+        view = FilmWorkViewSet.as_view()
+
+        # Make an authenticated request to the view...
+        request = factory.get('/filmwork/')
+        force_authenticate(request, user=user)
+        response = view(request)
+        print(f'here response in test_connection_by_id : {response}')
+    #
+    #
     def test_post_data(self):
         """
         Ensure we can create a new object in model .
