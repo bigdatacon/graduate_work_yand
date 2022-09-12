@@ -49,17 +49,21 @@ from rest_framework import status
 
 
 # cоздание и удаление  объекта работает
-fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
-ans_file = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"}, files={'file_path': fd})
-print(f"Answer is {ans_file.status_code}: {ans_file.json()},  id : {ans_file.json().get('id')}")
+# fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
+# ans_file = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"}, files={'file_path': fd})
+# print(f"Answer is {ans_file.status_code}: {ans_file.json()},  id : {ans_file.json().get('id')}")
 #Answer is 201:
-id = ans_file.json().get('id')
-ans_file = requests.delete(f"http://127.0.0.1:8000/filmwork/{id}")
-print(f"Answer is {ans_file.status_code}")
+# id = ans_file.json().get('id')
+# ans_file = requests.delete(f"http://127.0.0.1:8000/filmwork/{id}")
+# print(f"Answer is {ans_file.status_code}")
 #Answer is 204
 
 
 # update объекта
-ans_file = requests.update(f"http://127.0.0.1:8000/filmwork/{id}",  {"title": "testupdate", "certificate": "test"}, files={'file_path': fd})
-print(f"Answer is {ans_file.status_code}")
+fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
+response = requests.post("http://127.0.0.1:8000/filmwork/c4563b47-e3a6-4ae0-a450-563901bde8e4/",
+                         {"title": "test_UPDATE", "certificate": "test"},
+                         files={'file_path': fd})
+
+print(f'Answer after update : {response.json().get("title")}, send to update : {"test_UPDATE"}')
 #Answer AttributeError: module 'requests' has no attribute 'update'
