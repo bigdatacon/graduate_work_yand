@@ -115,7 +115,8 @@ class ConnectionTests(APITestCase):
     #     self.assertEqual(response.status_code, status.HTTP_200_OK)
     #     print(f'Answer after update : {response.json().get("title")}, send to update : {"test_UPDATE"}')
 
-    def tearDownClass(self):
-        for file in self.files:
-            os.unlink(file)
+    def tearDown(self):
+        self.fd.close()
+        self.test_client.delete()
+
 
