@@ -8,6 +8,7 @@ from  .views import FilmWorkViewSet
 from rest_framework.test import force_authenticate, APIRequestFactory
 from pathlib import Path
 import requests
+import os
 
 #Загрука файлов через формы https://stackabuse.com/handling-file-uploads-with-django/
 #https://github.com/erkarl/django-rest-framework-oauth2-provider-example/blob/master/apps/users/tests.py    - для тестов good
@@ -22,8 +23,8 @@ class ConnectionTests(APITestCase):
         self.url = 'http://127.0.0.1:8000/filmwork/'
         # self.test_client  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate', files={'file_path': self.fd})  # - если грузить тут файл - не работает так, я не нашел как простым способом добавить файлы
         self.test_client  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate')
-        self.test_client_id = self.test_client.id
-        print(f' eto self.test_client_id: {self.test_client_id}, eto self.test_client : {self.test_client.title}')
+        self.test_filmwork_id = self.test_client.id
+        print(f' eto self.test_client_id: {self.test_filmwork_id}, eto self.test_client : {self.test_client.title}')
 
     #1
     def test_connection_questions(self):
@@ -51,9 +52,9 @@ class ConnectionTests(APITestCase):
         response = requests.get("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
         # response = requests.get(f"{self.url}{self.test_client_id}")
         # response = self.client.get(f"/filmwork/{self.test_client_id}")
-        url = f"{self.url}{self.test_client_id}"
+        url = f"{self.url}{self.test_filmwork_id}"
         print(f' eto url : {url}, eto base : {"http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028"}, eto test_client : {self.test_client}')
-        print(f' eto test_client : {self.test_client.title , self.test_client.certificate}, {self.test_client_id}')
+        print(f' eto test_client : {self.test_client.title , self.test_client.certificate}, {self.test_filmwork_id}')
 
         # response = requests.get(f"{self.url}{self.test_client_id}")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -113,3 +114,8 @@ class ConnectionTests(APITestCase):
     #                              files={'file_path': self.fd})
     #     self.assertEqual(response.status_code, status.HTTP_200_OK)
     #     print(f'Answer after update : {response.json().get("title")}, send to update : {"test_UPDATE"}')
+
+    def tearDownClass(self):
+        for file in self.files:
+            os.unlink(file)
+
