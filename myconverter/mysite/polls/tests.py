@@ -22,9 +22,9 @@ class ConnectionTests(APITestCase):
         self.fd = open('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'.encode('utf-8'), 'rb')
         self.url = 'http://127.0.0.1:8000/filmwork/'
         # self.test_client  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate', files={'file_path': self.fd})  # - если грузить тут файл - не работает так, я не нашел как простым способом добавить файлы
-        self.test_client  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate')
-        self.test_filmwork_id = self.test_client.id
-        print(f' eto self.test_client_id: {self.test_filmwork_id}, eto self.test_client : {self.test_client.title}')
+        self.test_filmwork  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate')
+        self.test_filmwork_id = self.test_filmwork.id
+        print(f' eto self.test_client_id: {self.test_filmwork_id}, eto self.test_client : {self.test_filmwork.title}')
 
     #1
     def test_connection_questions(self):
@@ -53,8 +53,8 @@ class ConnectionTests(APITestCase):
         # response = requests.get(f"{self.url}{self.test_client_id}")
         # response = self.client.get(f"/filmwork/{self.test_client_id}")
         url = f"{self.url}{self.test_filmwork_id}"
-        print(f' eto url : {url}, eto base : {"http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028"}, eto test_client : {self.test_client}')
-        print(f' eto test_client : {self.test_client.title , self.test_client.certificate}, {self.test_filmwork_id}')
+        print(f' eto url : {url}, eto base : {"http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028"}, eto test_client : {self.test_filmwork}')
+        print(f' eto test_client : {self.test_filmwork.title , self.test_filmwork.certificate}, {self.test_filmwork_id}')
 
         # response = requests.get(f"{self.url}{self.test_client_id}")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -117,6 +117,6 @@ class ConnectionTests(APITestCase):
 
     def tearDown(self):
         self.fd.close()
-        self.test_client.delete()
+        self.test_filmwork.delete()
 
 
