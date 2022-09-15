@@ -20,11 +20,13 @@ class ConnectionTests(APITestCase):
         # self.data = {'username': 'mike', 'first_name': 'Mike', 'last_name': 'Tyson'}
         self.path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files'
         self.fd = open('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'.encode('utf-8'), 'rb')
-        self.url = 'http://127.0.0.1:8000/filmwork/'
+        self.url = '/filmwork/'
+        self.url_long = "http://127.0.0.1:8000/filmwork/"
         # self.test_client  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate', files={'file_path': self.fd})  # - если грузить тут файл - не работает так, я не нашел как простым способом добавить файлы
         self.test_filmwork  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate')
         self.test_filmwork_id = self.test_filmwork.id
         print(f' eto self.test_client_id: {self.test_filmwork_id}, eto self.test_client : {self.test_filmwork.title}')
+        self.files = {'file_path': self.fd}
 
     #1
     def test_connection_questions(self):
@@ -49,33 +51,38 @@ class ConnectionTests(APITestCase):
         """
         Ensure we can get object by id from table
         """
-        response = self.client.get(f"/filmwork/{self.test_filmwork_id}/")
-        url = f"{self.url}{self.test_filmwork_id}"
+        response = self.client.get(f"{self.url}{self.test_filmwork_id}/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     #
     #4
-    # def test_post_data(self):
-    #     """
-    #     Ensure we can create a new object in model .
-    #     """
-    #     data = {'question_text': 'DabApps', 'files': {'file_path': self.fd}}
-    #     # response = self.client.post('/polls/question/', data, format='json')
-    #     response = self.client.post('/questions/', data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     self.assertEqual(Question.objects.get().question_text, 'DabApps')
-    #
+    def test_post_data(self):
+        """
+        Ensure we can create a new object in model .
+        """
+        # data = {'question_text': 'DabApps', 'files': {'file_path': self.fd}}
+        data = {'question_text': 'DabApps'}
+        # response = self.client.post('/polls/question/', data, format='json')
+        response = self.client.post('/questions/', data, self.files)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Question.objects.get().question_text, 'DabApps')
+
 
     #5
-    # def test_post_delete_data(self):
-    #     response = requests.post(f"{self.url}", {"title": "test", "certificate": "test"},
-    #                              files={'file_path': self.fd})
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     # Answer is 201:
-    #     id = response.json().get('id')
-    #     response = requests.delete(f"{self.url}{id}")
-    #     # print(f"Answer is {response.status_code}")
-    #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-    #
+    def test_post_delete_data(self):
+        response = requests.post(self.url_long, {"title": "test", "certificate": "test"},
+                                 files={'file_path': self.fd})
+
+        # response = self.client.post(f"{self.url}", {"title": "test", "certificate": "test"},
+        #                          files={'file_path': self.fd})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        # Answer is 201:
+        id = response.json().get('id')
+        response = requests.delete(f"{self.url_long}{id}")
+        # response = self.client.delete(f"{self.url}{id}")
+        # print(f"Answer is {response.status_code}")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
     # #6
     # def test_post_many_files(self):
     #     """
