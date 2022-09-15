@@ -48,7 +48,7 @@ class ConnectionTests(APITestCase):
         """
         Ensure we can get object by id from table
         """
-        # response = requests.get("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
+        response = requests.get("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
         # response = requests.get(f"{self.url}{self.test_client_id}")
         # response = self.client.get(f"/filmwork/{self.test_client_id}")
         url = f"{self.url}{self.test_client_id}"
