@@ -49,14 +49,8 @@ class ConnectionTests(APITestCase):
         """
         Ensure we can get object by id from table
         """
-        response = requests.get("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
-        # response = requests.get(f"{self.url}{self.test_client_id}")
-        # response = self.client.get(f"/filmwork/{self.test_client_id}")
+        response = self.client.get(f"/filmwork/{self.test_filmwork_id}/")
         url = f"{self.url}{self.test_filmwork_id}"
-        print(f' eto url : {url}, eto base : {"http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028"}, eto test_client : {self.test_filmwork}')
-        print(f' eto test_client : {self.test_filmwork.title , self.test_filmwork.certificate}, {self.test_filmwork_id}')
-
-        # response = requests.get(f"{self.url}{self.test_client_id}")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     #
     #4
