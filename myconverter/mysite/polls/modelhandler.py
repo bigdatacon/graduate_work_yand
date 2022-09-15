@@ -3,6 +3,8 @@ import requests
 from typing import Optional
 from rest_framework import status
 import ffmpeg
+import os
+from ffmpeg import probe
 
 class ModelHandler:
     def __init__(self, model_url: str):
@@ -86,9 +88,47 @@ class ModelHandler:
             return False
         pass
 
+    def vid_resize(self, vid_path, output_path, width, overwrite=False):
+        '''
+        use ffmpeg to resize the input video to the width given, keeping aspect ratio
+        '''
+        if not (os.path.isdir(os.path.dirname(output_path))):
+            raise ValueError(f'output_path directory does not exists: {os.path.dirname(output_path)}')
+
+        if os.path.isfile(output_path) and not overwrite:
+            print(f'{output_path} already exists but overwrite switch is False, nothing done.')
+            return None
+
+        input_vid = ffmpeg.input(vid_path)
+        vid = (
+            input_vid
+                .filter('scale', width, -1)
+                .output(output_path)
+                .overwrite_output()
+                .run()
+        )
+        return output_path
+
+    def resize(self):
+        stream = ffmpeg.input("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4")
+        stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
+        stream = ffmpeg.output(stream, "C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4")
+        ffmpeg.run(stream)
+
+    def test_ffmpeg(self):
+        file = "C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4"
+        media_file = file
+        print(ffmpeg.probe(media_file)["streams"])
+
+
     #6
-    def convert_video(self, object_id : str,  file_path :Optional[str] = None):
-        pass
+    def convert_video(self, vid_path, output_path, width, overwrite = False):
+        # return  self.vid_resize('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', output_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4', width = 250)
+
+        return  self.vid_resize(f'{vid_path}', output_path = f'{output_path}', width = width)
+
+
+
 
 
 
@@ -100,5 +140,8 @@ if __name__ == '__main__':
     # id = '763af035-a450-4e62-931b-d59815c3d028'
     # print(f'"http://127.0.0.1:8000/filmwork/{id}"')
     model = ModelHandler('http://127.0.0.1:8000/filmwork/')
+    # print(model.convert_video('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4', width=250))
     # print(model.update_object_by_id('fsdfsd', '554564', 'fdsfsdfs', 'file_path').values)
     # print(model.add_many_object_to_table(object_title='test_optinal',  path ='C:\\Yand_final_sprint\\myconverter\\mysite\\files'))
+    # print(model.test_ffmpeg())
+    print(model.resize())
