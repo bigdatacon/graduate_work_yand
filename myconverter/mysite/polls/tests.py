@@ -26,21 +26,21 @@ class ConnectionTests(APITestCase):
         print(f' eto self.test_client_id: {self.test_client_id}, eto self.test_client : {self.test_client.title}')
 
     #1
-    # def test_connection_questions(self):
-    #     """
-    #     Ensure we can get access to the object .
-    #     """
-    #     response = self.client.get('/questions/', format= 'json')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_connection_questions(self):
+        """
+        Ensure we can get access to the object .
+        """
+        response = self.client.get('/filmwork/', format= 'json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
     #
     #
     # #2
-    # def test_connection(self):
-    #     """
-    #     Ensure we can create a new account object.
-    #     """
-    #     response = self.client.get('/polls/question/', format= 'json')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_connection(self):
+        """
+        Ensure we can create a new account object.
+        """
+        response = self.client.get('/polls/question/', format= 'json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
     #
     #
     # #3
@@ -48,10 +48,12 @@ class ConnectionTests(APITestCase):
         """
         Ensure we can get object by id from table
         """
-        response = requests.get("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
+        # response = requests.get("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
+        # response = requests.get(f"{self.url}{self.test_client_id}")
+        # response = self.client.get(f"/filmwork/{self.test_client_id}")
         url = f"{self.url}{self.test_client_id}"
         print(f' eto url : {url}, eto base : {"http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028"}, eto test_client : {self.test_client}')
-        print(f' eto test_client : {self.test_client}')
+        print(f' eto test_client : {self.test_client.title , self.test_client.certificate}, {self.test_client_id}')
 
         # response = requests.get(f"{self.url}{self.test_client_id}")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
