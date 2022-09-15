@@ -96,7 +96,7 @@ class ConnectionTests(APITestCase):
         #     "certificate": "test_api_1",
         #     "file_path": "http://127.0.0.1:8000/film_works/file_path_3MbT583"
         # },
-        response = requests.post("http://127.0.0.1:8000/filmwork/c4563b47-e3a6-4ae0-a450-563901bde8e4/", {"title": "test_UPDATE", "certificate": "test"},
+        response = requests.put("http://127.0.0.1:8000/filmwork/c4563b47-e3a6-4ae0-a450-563901bde8e4/", {"title": "test_UPDATE", "certificate": "test"},
                                  files={'file_path': self.fd})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         print(f'Answer after update : {response.json().get("title")}, send to update : {"test_UPDATE"}')

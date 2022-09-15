@@ -73,12 +73,12 @@ class ModelHandler:
         try:
             if file_path:
                 fd = open(file_path.encode('utf-8'), 'rb')
-                response = requests.post(f"{self.model_url}{object_id}",
+                response = requests.put(f"{self.model_url}{object_id}",
                                          object_data,
                                          files={'file_path': fd})
                 return True
             else:
-                response = requests.post(f"{self.model_url}{object_id}",
+                response = requests.put(f"{self.model_url}{object_id}",
                                          object_data)
 
                 return True

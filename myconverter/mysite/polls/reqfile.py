@@ -60,12 +60,12 @@ from rest_framework import status
 
 
 # update объекта
-# fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
-# response = requests.post("http://127.0.0.1:8000/filmwork/c4563b47-e3a6-4ae0-a450-563901bde8e4/",
-#                          {"title": "test_UPDATE", "certificate": "test"},
-#                          files={'file_path': fd})
-#
-# print(f'Answer after update : {response.json().get("title")}, send to update : {"test_UPDATE"}')
+fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
+response = requests.put("http://127.0.0.1:8000/filmwork/c4563b47-e3a6-4ae0-a450-563901bde8e4/",
+                         {"title": "test_UPDATE", "certificate": "test"},
+                         files={'file_path': fd})
+
+print(f'response.status_code : {response.status_code} Answer after update : {response.json().get("title")}, send to update : {"test_UPDATE"}')
 #Answer AttributeError: module 'requests' has no attribute 'update'
 
 model_url = 'http://127.0.0.1:8000/filmwork/'
