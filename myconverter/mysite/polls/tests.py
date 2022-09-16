@@ -76,13 +76,13 @@ class ConnectionTests(APITestCase):
         # response = self.client.post(f"{self.url}", {"title": "test", "certificate": "test"},
         #                          files=self.files)
 
-        response = self.client.post({'file_path': self.fd}, f"{self.url}", {"title": "test", "certificate": "test"})
+        response = self.client.post(self.url, {"title": "test", "certificate": "test", "file_path": self.fd})
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # Answer is 201:
         id = response.json().get('id')
         # response = requests.delete(f"{self.url_long}{id}")
-        response = self.client.delete(f"{self.url}{id}")
+        response = self.client.delete(f"{self.url}{id}/")
         # print(f"Answer is {response.status_code}")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
