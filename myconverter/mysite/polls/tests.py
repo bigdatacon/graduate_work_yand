@@ -19,7 +19,7 @@ class ConnectionTests(APITestCase):
     def setUp(self):
         # self.data = {'username': 'mike', 'first_name': 'Mike', 'last_name': 'Tyson'}
         self.path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files'
-        self.fd = open('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'.encode('utf-8'), 'rb')
+        self.fd = open('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', 'rb')
         self.url = '/filmwork/'
         self.url_long = "http://127.0.0.1:8000/filmwork/"
         # self.test_client  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate', files={'file_path': self.fd})  # - если грузить тут файл - не работает так, я не нашел как простым способом добавить файлы
@@ -95,7 +95,8 @@ class ConnectionTests(APITestCase):
         for p in Path(self.path).rglob('*'):
             print(f' {i:} eto p : {str(p)}, type: {type(str(p))}')
 
-            file_path = str(p.parent) + p.name
+            # file_path = str(p.parent) + p.name
+            file_path = os.path.join(str(p.parent), p.name)
             print(f'eto file_path :')
             print(file_path)
             # response = requests.post("http://127.0.0.1:8000/filmwork/",
@@ -103,7 +104,7 @@ class ConnectionTests(APITestCase):
             #                          files={'file_path': file_path})
 
             response = self.client.post(self.url,
-                                     {'title': f"test_api_{i}", 'certificate': f"test_api_{i}", 'file_path': file_path})
+                                     {'title': f"test_api_{i}", 'certificate': f"test_api_{i}", 'file_path': open(file_path, "rb")})
             # response = self.client.post(self.url_long,
             #                          {'title': f"test_api_{i}", 'certificate': f"test_api_{i}", 'file_path': file_path})
             print(f"Answer is with load_file_to_model {response.status_code}: {response.json()}")
