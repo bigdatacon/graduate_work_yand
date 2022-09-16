@@ -6,13 +6,14 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from model_utils.models import TimeStampedModel
 
-# class Question(models.Model):
-#     question_text = models.CharField(max_length=200)
-#     pub_date = models.DateTimeField('date published')
-#     def __str__(self):
-#         return self.question_text
-#     def was_published_recently(self):
-#         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    file_path = models.FileField(_('FileQuestion'), upload_to='files/', null=True, blank=True)
+    # pub_date = models.DateTimeField('date published')
+    def __str__(self):
+        return self.question_text
+    # def was_published_recently(self):
+    #     return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 #
 #
 # class Choice(models.Model):
@@ -29,7 +30,7 @@ class Fileupl(TimeStampedModel):
     codec_name = models.CharField(_('Codec'), max_length=100, null=True, blank=True)
     display_aspect_ratio = models.CharField(_('Display Aspect Ratio'), max_length=100, null=True, blank=True)
     fps = models.IntegerField(_('FPS'), null=True, blank=True)
-    film = models.ForeignKey('FilmWork',  related_name='film', null=True, verbose_name="Фильм", on_delete=models.CASCADE)
+    film = models.ForeignKey('FilmWork',  related_name='files', null=True, verbose_name="Фильм", on_delete=models.CASCADE)
     #
     class Meta:
         verbose_name = _('Fileupl')
