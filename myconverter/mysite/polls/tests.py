@@ -73,8 +73,11 @@ class ConnectionTests(APITestCase):
         # response = requests.post(self.url_long, {"title": "test", "certificate": "test"},
         #                          files={'file_path': self.fd})
 
-        response = self.client.post(f"{self.url}", {"title": "test", "certificate": "test"},
-                                 files=self.files)
+        # response = self.client.post(f"{self.url}", {"title": "test", "certificate": "test"},
+        #                          files=self.files)
+
+        response = self.client.post({'file_path': self.fd}, f"{self.url}", {"title": "test", "certificate": "test"})
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # Answer is 201:
         id = response.json().get('id')
