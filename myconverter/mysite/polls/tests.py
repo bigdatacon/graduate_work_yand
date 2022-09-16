@@ -55,17 +55,15 @@ class ConnectionTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     #
     #4
-    # def test_post_data(self):
-    #     """
-    #     Ensure we can create a new object in model .
-    #     """
-    #     # data = {'question_text': 'DabApps', 'files': {'file_path': self.fd}}
-    #     data = {'question_text': 'DabApps'}
-    #     # response = self.client.post('/polls/question/', data, format='json')
-    #     response = self.client.post('/questions/', data, self.files)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     self.assertEqual(Question.objects.get().question_text, 'DabApps')
+    def test_post_data(self):
+        """
+        Ensure we can create a new object in model .
+        """
+        data = {'question_text': 'DabApps', 'files' : self.files.get('file_path', None)}
+        response = self.client.post('/questions/', data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Question.objects.get().question_text, 'DabApps')
 
 
     #5
@@ -100,15 +98,13 @@ class ConnectionTests(APITestCase):
             file_path = str(p.parent) + p.name
             print(f'eto file_path :')
             print(file_path)
-            response = requests.post("http://127.0.0.1:8000/filmwork/",
-                                     {'title': f"test_api_{i}", 'certificate': f"test_api_{i}"},
-                                     files={'file_path': file_path})
-            # response = self.client.post(self.url_long,
+            # response = requests.post("http://127.0.0.1:8000/filmwork/",
             #                          {'title': f"test_api_{i}", 'certificate': f"test_api_{i}"},
             #                          files={'file_path': file_path})
+
+            response = self.client.post(self.url,
+                                     {'title': f"test_api_{i}", 'certificate': f"test_api_{i}", 'file_path': file_path})
             # response = self.client.post(self.url_long,
-            #                          {'title': f"test_api_{i}", 'certificate': f"test_api_{i}", 'file_path': file_path})
-            # response = self.client.post(self.url,
             #                          {'title': f"test_api_{i}", 'certificate': f"test_api_{i}", 'file_path': file_path})
             print(f"Answer is with load_file_to_model {response.status_code}: {response.json()}")
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
