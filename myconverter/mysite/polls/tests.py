@@ -62,23 +62,24 @@ class ConnectionTests(APITestCase):
         # data = {'question_text': 'DabApps', 'files': {'file_path': self.fd}}
         data = {'question_text': 'DabApps'}
         # response = self.client.post('/polls/question/', data, format='json')
-        response = self.client.post('/questions/', data, self.files)
+        # response = self.client.post('/questions/', data, self.files)
+        response =self.client.post("/questions/", data, files=self.files)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Question.objects.get().question_text, 'DabApps')
 
 
     #5
     def test_post_delete_data(self):
-        response = requests.post(self.url_long, {"title": "test", "certificate": "test"},
-                                 files={'file_path': self.fd})
-
-        # response = self.client.post(f"{self.url}", {"title": "test", "certificate": "test"},
+        # response = requests.post(self.url_long, {"title": "test", "certificate": "test"},
         #                          files={'file_path': self.fd})
+
+        response = self.client.post(f"{self.url}", {"title": "test", "certificate": "test"},
+                                 files=self.files)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # Answer is 201:
         id = response.json().get('id')
-        response = requests.delete(f"{self.url_long}{id}")
-        # response = self.client.delete(f"{self.url}{id}")
+        # response = requests.delete(f"{self.url_long}{id}")
+        response = self.client.delete(f"{self.url}{id}")
         # print(f"Answer is {response.status_code}")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
