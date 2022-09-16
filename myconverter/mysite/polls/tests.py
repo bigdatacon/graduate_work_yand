@@ -25,12 +25,6 @@ class ConnectionTests(APITestCase):
         response = self.client.get('/filmwork/', format= 'json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_connection(self):
-        """
-        Ensure we can create a new account object.
-        """
-        response = self.client.get('/polls/question/', format= 'json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_connection_by_id(self):
         """
@@ -39,15 +33,6 @@ class ConnectionTests(APITestCase):
         response = self.client.get(f"{self.url}{self.test_filmwork_id}/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_post_data(self):
-        """
-        Ensure we can create a new object in model .
-        """
-        data = {'question_text': 'DabApps', 'files' : self.files.get('file_path', None)}
-        response = self.client.post('/questions/', data)
-
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Question.objects.get().question_text, 'DabApps')
 
 
     def test_post_delete_data(self):
