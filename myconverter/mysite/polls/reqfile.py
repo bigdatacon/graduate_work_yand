@@ -1,4 +1,5 @@
 import requests
+import os
 from rest_framework import status
 # from .models import FilmWork
 # from .views import FilmWorkViewSet
@@ -60,21 +61,23 @@ from rest_framework import status
 
 
 # update объекта
-fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
-response = requests.put("http://127.0.0.1:8000/filmwork/c4563b47-e3a6-4ae0-a450-563901bde8e4/",
-                         {"title": "test_UPDATE", "certificate": "test"},
-                         files={'file_path': fd})
-
-print(f'response.status_code : {response.status_code} Answer after update : {response.json().get("title")}, send to update : {"test_UPDATE"}')
+# fd = open("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4", "rb")
+# response = requests.put("http://127.0.0.1:8000/filmwork/c4563b47-e3a6-4ae0-a450-563901bde8e4/",
+#                          {"title": "test_UPDATE", "certificate": "test"},
+#                          files={'file_path': fd})
+#
+# print(f'response.status_code : {response.status_code} Answer after update : {response.json().get("title")}, send to update : {"test_UPDATE"}')
 #Answer AttributeError: module 'requests' has no attribute 'update'
 
-model_url = 'http://127.0.0.1:8000/filmwork/'
-object_data = {"title": "test", "certificate": "test"}
-file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
-fd = open(file_path.encode('utf-8'), 'rb')
+# model_url = 'http://127.0.0.1:8000/filmwork/'
+# object_data = {"title": "test", "certificate": "test"}
+# file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
+# file_path_new =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
+# file_path = os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
+# fd = open(file_path.encode('utf-8'), 'rb')
 #get_model_object_by_id
 # print("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
-id = '763af035-a450-4e62-931b-d59815c3d028'
+# id = '763af035-a450-4e62-931b-d59815c3d028'
 # print(f'"http://127.0.0.1:8000/filmwork/{id}"')
 #
 # response = requests.get("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
@@ -90,9 +93,26 @@ id = '763af035-a450-4e62-931b-d59815c3d028'
 #                          files={'file_path': fd})
 # print(response.status_code, response.json())
 
-response = requests.post(f'{model_url}', object_data,
+# response = requests.post(f'{model_url}', object_data,
+#                          files={'file_path': fd})
+# print(f' another way :  : {response.status_code}, response.json() : {response.json()}, {response.status_code==201}')
+
+
+import os
+print(os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4'))
+
+object_data = {"title": "test", "certificate": "test"}
+file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
+file_path_new =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
+
+# file_path_new =  str(os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')).encode('utf-8')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
+# file_path = os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
+fd = open(file_path.encode('utf-8'), 'rb')
+fd_new = open(file_path_new, 'rb')
+response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
                          files={'file_path': fd})
-print(f' another way :  : {response.status_code}, response.json() : {response.json()}, {response.status_code==201}')
+print(response.status_code, response.json())
+response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
+                         files={'file_path': fd_new})
 
-
-
+print(response.status_code, response.json())
