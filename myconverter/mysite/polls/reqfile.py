@@ -99,11 +99,14 @@ from rest_framework import status
 
 
 import os
-print(os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4'))
+
 
 object_data = {"title": "test", "certificate": "test"}
-file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
-file_path_new =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
+file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4' #C:\Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4
+
+# file_path_new =  os.path.join('C:',  '\\', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'bandicam_2022-09-02_00-50-24-003.mp4')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
+file_path_new =  os.path.join('C:',  '\\', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
+print(f' eto file_path_new : {file_path_new}')
 
 # file_path_new =  str(os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')).encode('utf-8')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
 # file_path = os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
