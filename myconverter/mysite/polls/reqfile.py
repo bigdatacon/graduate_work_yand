@@ -101,21 +101,34 @@ from rest_framework import status
 import os
 
 
-object_data = {"title": "test", "certificate": "test"}
-file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4' #C:\Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4
+
+# file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4' #C:\Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4
 
 # file_path_new =  os.path.join('C:',  '\\', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'bandicam_2022-09-02_00-50-24-003.mp4')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
-file_path_new =  os.path.join('C:',  '\\', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
-print(f' eto file_path_new : {file_path_new}')
+# file_path_new =  os.path.join('C:',  '\\', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
+# print(f' eto file_path_new : {file_path_new}')
+
 
 # file_path_new =  str(os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')).encode('utf-8')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
 # file_path = os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
-fd = open(file_path.encode('utf-8'), 'rb')
-fd_new = open(file_path_new, 'rb')
+# fd = open(file_path.encode('utf-8'), 'rb')
+# fd_new = open(file_path_new, 'rb')
+
+# response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
+#                          files={'file_path': fd})
+# print(response.status_code, response.json())
+# response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
+#                          files={'file_path': fd_new})
+#
+# print(response.status_code, response.json())
+
+
+"""без слешей"""
+object_data = {"title": "test", "certificate": "test"}
+file_path_new_2 =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
+print(f' eto file_path_new2 : {file_path_new_2}')
+fd_new_2 = open(file_path_new_2, 'rb')
 response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
-                         files={'file_path': fd})
-print(response.status_code, response.json())
-response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
-                         files={'file_path': fd_new})
+                         files={'file_path': fd_new_2})
 
 print(response.status_code, response.json())
