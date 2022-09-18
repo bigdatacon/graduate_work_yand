@@ -110,13 +110,13 @@ class ModelHandler:
         return output_path
 
     def resize(self):
-        stream = ffmpeg.input("C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4")
+        stream = ffmpeg.input(os.path.join("..", "files", "тест.mp4"))
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
-        stream = ffmpeg.output(stream, "C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4")
+        stream = ffmpeg.output(stream, os.path.join("..", "files", "NEW_MOVIE.mp4"))
         ffmpeg.run(stream)
 
     def test_ffmpeg(self):
-        file = "C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4"
+        file = os.path.join("..", "files", "тест.mp4")
         media_file = file
         print(ffmpeg.probe(media_file)["streams"])
 
@@ -129,16 +129,11 @@ class ModelHandler:
 
 
 
-
-
-
-
-
-
 if __name__ == '__main__':
     # print("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
     # id = '763af035-a450-4e62-931b-d59815c3d028'
     # print(f'"http://127.0.0.1:8000/filmwork/{id}"')
+    model = ModelHandler('/filmwork/')
     model = ModelHandler('http://127.0.0.1:8000/filmwork/')
     # print(model.convert_video('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4', width=250))
     # print(model.update_object_by_id('fsdfsd', '554564', 'fdsfsdfs', 'file_path').values)

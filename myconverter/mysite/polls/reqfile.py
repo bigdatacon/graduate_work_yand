@@ -125,7 +125,8 @@ import os
 
 """без слешей"""
 object_data = {"title": "test", "certificate": "test"}
-file_path_new_2 =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
+# file_path_new_2 =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
+file_path_new_2 = os.path.join("..", "files", "тест.mp4")
 print(f' eto file_path_new2 : {file_path_new_2}')
 fd_new_2 = open(file_path_new_2, 'rb')
 response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
