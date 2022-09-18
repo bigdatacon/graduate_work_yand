@@ -11,9 +11,9 @@ import os
 class ConnectionTests(APITestCase):
     def setUp(self):
         # self.path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files'
-        self.path = os.path.join("..", "files")
+        self.path = os.path.join(".", "files")
         # self.fd = open('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', 'rb')
-        self.row_file_path =  os.path.join("..", "files", "тест.mp4")
+        self.row_file_path =  os.path.join(".", "files", "тест.mp4")
         self.fd = open(self.row_file_path, 'rb')
         self.url = '/filmwork/'
         self.url_long = "http://127.0.0.1:8000/filmwork/"
