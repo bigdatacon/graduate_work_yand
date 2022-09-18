@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import include, path, reverse
 from rest_framework.test import APITestCase, URLPatternsTestCase
 from rest_framework import status
-from .models import Question, FilmWork, Fileupl
+from .models import FilmWork, Fileupl
 from pathlib import Path
 import requests
 import os
