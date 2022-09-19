@@ -133,7 +133,7 @@ if __name__ == '__main__':
     # print("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
     # id = '763af035-a450-4e62-931b-d59815c3d028'
     # print(f'"http://127.0.0.1:8000/filmwork/{id}"')
-    model = ModelHandler('/filmwork/')
+    # model = ModelHandler('/filmwork/')
     model = ModelHandler('http://127.0.0.1:8000/filmwork/')
     # print(model.convert_video('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4', width=250))
     # print(model.update_object_by_id('fsdfsd', '554564', 'fdsfsdfs', 'file_path').values)
