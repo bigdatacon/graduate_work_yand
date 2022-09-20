@@ -4,7 +4,7 @@ from typing import Optional
 from rest_framework import status
 import ffmpeg
 import os
-from ffmpeg import probe
+
 
 class ModelHandler:
     def __init__(self, model_url: str):
@@ -140,4 +140,4 @@ if __name__ == '__main__':
     # print(model.add_many_object_to_table(object_title='test_optinal',  path ='C:\\Yand_final_sprint\\myconverter\\mysite\\files'))
     # print(model.test_ffmpeg())
     print(model.resize())
-    print(model.test_ffmpeg())
+    # print(model.test_ffmpeg())

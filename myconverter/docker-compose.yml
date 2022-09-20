@@ -67,8 +67,8 @@ volumes:
 networks:
   movies_network:
 
-#docker exec -it postgres_movies python manage.py migrate
-#docker exec -it postgres_movies bash
+#docker exec -it django_movies python manage.py migrate
+#docker exec -it django_movies bash
 #python manage.py migrate
 #docker exec -i postgres_movies bash
 
