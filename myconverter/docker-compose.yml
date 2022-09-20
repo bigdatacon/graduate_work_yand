@@ -38,6 +38,14 @@ services:
     depends_on:
       - postgres
 
+#  migration:
+#    image: uzman
+#    command: python manage.py migrate --noinput
+#    volumes:
+#      - .:/code
+#    depends_on:
+#      - postgres
+
 #  nginx:
 #    image: nginx:1.19.2
 #    container_name: nginx_movies
@@ -63,3 +71,13 @@ networks:
 #docker exec -it postgres_movies bash
 #python manage.py migrate
 #docker exec -i postgres_movies bash
+
+#2
+#docker exec -t -i postgres_movies bash
+#python manage.py makemigrations
+#python manage.py migrate
+
+
+#3
+#docker-compose exec postgres_movies python manage.py makemigrations
+#docker-compose exec postgres_movies python manage.py migrate
