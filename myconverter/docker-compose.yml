@@ -18,6 +18,8 @@ services:
       context: mysite
       dockerfile: Dockerfile
     container_name: django_movies
+    env_file:
+      - ./mysite/.env
     volumes:
       - static_volume:/data/static
     networks:
