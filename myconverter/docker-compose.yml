@@ -13,6 +13,7 @@ services:
     networks:
       - movies_network
 
+
   django:
     build:
       context: mysite
@@ -27,6 +28,13 @@ services:
     networks:
       - movies_network
     command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - postgres
+
+  movies_streaming_converter_api:
+    build:
+      context: polls
+      dockerfile: Dockerfile
     depends_on:
       - postgres
 
@@ -50,3 +58,5 @@ volumes:
 
 networks:
   movies_network:
+
+#docker exec -it postgres_movies python manage.py migrate
