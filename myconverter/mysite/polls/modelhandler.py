@@ -140,3 +140,4 @@ if __name__ == '__main__':
     # print(model.add_many_object_to_table(object_title='test_optinal',  path ='C:\\Yand_final_sprint\\myconverter\\mysite\\files'))
     # print(model.test_ffmpeg())
     print(model.resize())
+    print(model.test_ffmpeg())
