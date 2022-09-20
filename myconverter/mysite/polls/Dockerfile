@@ -11,7 +11,7 @@ RUN apt-get install -y postgresql-client
 RUN apt install -y netcat
 
 RUN pip install --upgrade pip
-COPY ./requirements/*.txt ./
+COPY ./requirements.txt ./
 #RUN pip install -r dev.txt
 #
 #COPY ./entrypoint.dev.sh .
