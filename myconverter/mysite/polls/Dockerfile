@@ -7,6 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get -y update && apt-get install -y ffmpeg
+RUN apt-get install -y postgresql-client
 RUN apt install -y netcat
 
 RUN pip install --upgrade pip

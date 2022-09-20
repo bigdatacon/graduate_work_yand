@@ -33,7 +33,7 @@ services:
 
   movies_streaming_converter_api:
     build:
-      context: polls
+      context: mysite/polls
       dockerfile: Dockerfile
     depends_on:
       - postgres
@@ -60,3 +60,6 @@ networks:
   movies_network:
 
 #docker exec -it postgres_movies python manage.py migrate
+#docker exec -it postgres_movies bash
+#python manage.py migrate
+#docker exec -i postgres_movies bash
