@@ -11,6 +11,7 @@ RUN apt-get -y update && apt-get install -y ffmpeg
 RUN apt install -y netcat
 
 COPY requirements.txt /usr/src/app
+COPY files /usr/src/app/files
 RUN pip install --upgrade pip && pip install -r requirements.txt --no-cache-dir
 COPY modelhandler.py /usr/src/app
 #COPY ../mysite/files/тест.mp4 /usr/src/app
