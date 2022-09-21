@@ -110,13 +110,13 @@ class ModelHandler:
         return output_path
 
     def resize(self):
-        stream = ffmpeg.input(os.path.join("..", "files", "тест.mp4"))
+        stream = ffmpeg.input(os.path.join("../mysite", "files", "тест.mp4"))
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
-        stream = ffmpeg.output(stream, os.path.join("..", "files", "NEW_MOVIE.mp4"))
+        stream = ffmpeg.output(stream, os.path.join("../mysite", "files", "NEW_MOVIE.mp4"))
         ffmpeg.run(stream)
 
     def test_ffmpeg(self):
-        file = os.path.join("..", "files", "тест.mp4")
+        file = os.path.join("../mysite", "files", "тест.mp4")
         media_file = file
         print(ffmpeg.probe(media_file)["streams"])
 

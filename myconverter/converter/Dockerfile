@@ -7,11 +7,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get -y update && apt-get install -y ffmpeg
-RUN apt-get install -y postgresql-client
+#RUN apt-get install -y postgresql-client
 RUN apt install -y netcat
 
 RUN pip install --upgrade pip
-COPY ./requirements.txt ./
+COPY requirements.txt /usr/src/app
+COPY modelhandler.py /usr/src/app
+COPY ../myconverter/mysite/files/тест.mp4 /usr/src/app
 #RUN pip install -r dev.txt
 #
 #COPY ./entrypoint.dev.sh .
@@ -22,4 +24,4 @@ COPY ./requirements.txt ./
 #
 #ENTRYPOINT ["/usr/src/app/entrypoint.dev.sh"]
 #
-#CMD ["python", "main.py"]
+CMD ["python", "modelhandler.py"]
