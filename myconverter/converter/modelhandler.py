@@ -30,7 +30,7 @@ class ModelHandler:
     def add_one_object_to_table(self, object_data: dict, file_path : Optional[str]= None):
         try:
             fd = open(file_path.encode('utf-8'), 'rb')
-            response = requests.post(f'{self.model_ur}', object_data, files={'file_path': fd})
+            response = requests.post(f'{self.model_url}', object_data, files={'file_path': fd})
             assert  response.status_code == 201, 'not add object_data in function add_one_object_to_table'
             return True
         except Exception as e:
@@ -124,17 +124,15 @@ class ModelHandler:
 if __name__ == '__main__':
     #0 базовые параметры
     output_file_name = "NEW_MOVIE2.mp4"
-    object_id = "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82.mp4"   # этот объект точно есть в модели
+    object_id = "9f4bc97f-917c-4f1d-b099-cd1d16ec7269"   # этот объект точно есть в модели
     model = ModelHandler('http://127.0.0.1:8000/filmwork/')
     convert_model = ModelHandler('http://127.0.0.1:8000/fileupload/')
 
-#     {
-#         "id": "9f4bc97f-917c-4f1d-b099-cd1d16ec7269",
-#         "title": "test",
-#         "certificate": "test",
-#         "file_path": "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82.mp4"
-#     }
-# ]
+# {
+#     "id": "d90e9345-09c2-4d46-97a3-d6505b767f30",
+#     "title": "test",
+#     "certificate": "test",
+#     "file_path": "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82_4c0oXm9.mp4"
 # }
     #1 Cоздаю объект в модели FilmWork
     object_data = {"title": "test2", "certificate": "test2"}

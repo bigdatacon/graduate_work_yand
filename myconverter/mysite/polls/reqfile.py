@@ -1,4 +1,5 @@
 import requests
+from  myconverter.converter.modelhandler import ModelHandler
 import os
 from rest_framework import status
 # from .models import FilmWork
@@ -124,15 +125,42 @@ import os
 
 
 """без слешей"""
+""" ПРОВЕРКА """
+# {
+#     "id": "d90e9345-09c2-4d46-97a3-d6505b767f30",
+#     "title": "test",
+#     "certificate": "test",
+#     "file_path": "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82_4c0oXm9.mp4"
+# }
+
+
+file_path = "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82.mp4".split('/')[-1]
+print(file_path, type(file_path))
+
+
+#1 пробую создать объект filmwork без класса model_handler - работает
 # object_data = {"title": "test", "certificate": "test"}
 # file_path_new_2 = os.path.join("..", "files", "тест.mp4")
-# print(f' eto file_path_new2 : {file_path_new_2}')
 # fd_new_2 = open(file_path_new_2, 'rb')
 # response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
 #                          files={'file_path': fd_new_2})
 #
 # print(response.status_code, response.json())
-# print(response.json().get('file_path'))
+# print(response.json().get('file_path'), response.json().get('id'))
 
-file_path = "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82.mp4".split('/')[-1]
-print(file_path, type(file_path))
+#2 Получаю путь до файла и id фильма по id
+response = requests.get("http://127.0.0.1:8000/filmwork/d90e9345-09c2-4d46-97a3-d6505b767f30")
+file_path_to_convert, film_to_convert_id = response.json().get('file_path'),   response.json().get('id')
+print(f'eto file_path_to_convert, film_to_convert_id: {file_path_to_convert, film_to_convert_id}')
+
+#3 resize не делаю но сразу пишу в fileupload
+object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1,
+               'film': film_to_convert_id}
+file_path_new_2 = file_path_to_convert
+
+try:
+    response = requests.post("http://127.0.0.1:8000/fileupload/", object_data,
+                             files={'file_path': file_path_new_2})
+    print(f' in fileupload response.status_code, response.json() : {response.status_code, response.json()}')
+except Exception as e:
+    print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
