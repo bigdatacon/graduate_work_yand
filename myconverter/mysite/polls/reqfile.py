@@ -124,12 +124,15 @@ import os
 
 
 """без слешей"""
-object_data = {"title": "test", "certificate": "test"}
-# file_path_new_2 =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
-file_path_new_2 = os.path.join("..", "files", "тест.mp4")
-print(f' eto file_path_new2 : {file_path_new_2}')
-fd_new_2 = open(file_path_new_2, 'rb')
-response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
-                         files={'file_path': fd_new_2})
+# object_data = {"title": "test", "certificate": "test"}
+# file_path_new_2 = os.path.join("..", "files", "тест.mp4")
+# print(f' eto file_path_new2 : {file_path_new_2}')
+# fd_new_2 = open(file_path_new_2, 'rb')
+# response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
+#                          files={'file_path': fd_new_2})
+#
+# print(response.status_code, response.json())
+# print(response.json().get('file_path'))
 
-print(response.status_code, response.json())
+file_path = "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82.mp4".split('/')[-1]
+print(file_path, type(file_path))

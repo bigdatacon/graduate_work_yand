@@ -88,53 +88,65 @@ class ModelHandler:
             return False
         pass
 
-    def vid_resize(self, vid_path, output_path, width, overwrite=False):
-        '''
-        use ffmpeg to resize the input video to the width given, keeping aspect ratio
-        '''
-        if not (os.path.isdir(os.path.dirname(output_path))):
-            raise ValueError(f'output_path directory does not exists: {os.path.dirname(output_path)}')
 
-        if os.path.isfile(output_path) and not overwrite:
-            print(f'{output_path} already exists but overwrite switch is False, nothing done.')
-            return None
+    # def resize(self, output_file_name: str):
+    #     stream =  ffmpeg.input(os.path.join("/usr", "src", "app", "тест.mp4"))
+    #     stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
+    #     stream = ffmpeg.output(stream, f"{output_file_name}.mp4")
+    #     ffmpeg.run(stream)
 
-        input_vid = ffmpeg.input(vid_path)
-        vid = (
-            input_vid
-                .filter('scale', width, -1)
-                .output(output_path)
-                .overwrite_output()
-                .run()
-        )
-        return output_path
+    def get_file_from_existing_object_by_id(self, object_id):
+        object_data = self.get_model_object_by_id(object_id)
+        file_path = object_data.get('file_path')
+        file_id = object_data.get('id')
+        return file_path, file_id
 
-    def resize(self):
-        stream =  ffmpeg.input(os.path.join("/usr", "src", "app", "тест.mp4"))
+    def resize(self, input_file_path: str , output_file_path: str):
+        file_path = input_file_path.split('/')[-1]
+        stream =  ffmpeg.input(os.path.join("/usr", "src", "app", file_path))
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
-        stream = ffmpeg.output(stream, "NEW_MOVIE.mp4")
+        stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
         ffmpeg.run(stream)
+        return os.listdir(".")[0]
 
+    def create_object_for_converted_video(self, convert_video_path:str, convert_model, file_id):
+        object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1, 'film': file_id}
+        file_path_new_2 = os.path.join("/usr", "src", "app", convert_video_path)
 
-
-    #6
-    def convert_video(self, vid_path, output_path, width, overwrite = False):
-        # return  self.vid_resize('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', output_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4', width = 250)
-
-        return  self.vid_resize(f'{vid_path}', output_path = f'{output_path}', width = width)
-
+        try:
+            convert_model.add_one_object_to_table(object_data, file_path_new_2)
+            return True
+        except Exception as e:
+            print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
+            return False
 
 
 if __name__ == '__main__':
-    # print("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
-    # id = '763af035-a450-4e62-931b-d59815c3d028'
-    # print(f'"http://127.0.0.1:8000/filmwork/{id}"')
-    # model = ModelHandler('/filmwork/')
+    #0 базовые параметры
+    output_file_name = "NEW_MOVIE2.mp4"
+    object_id = "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82.mp4"   # этот объект точно есть в модели
     model = ModelHandler('http://127.0.0.1:8000/filmwork/')
-    # print(model.convert_video('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4', width=250))
-    # print(model.update_object_by_id('fsdfsd', '554564', 'fdsfsdfs', 'file_path').values)
-    # print(model.add_many_object_to_table(object_title='test_optinal',  path ='C:\\Yand_final_sprint\\myconverter\\mysite\\files'))
-    # print(model.test_ffmpeg())
-    print(model.resize())
-    print(os.listdir("."))
-    # print(model.test_ffmpeg())
+    convert_model = ModelHandler('http://127.0.0.1:8000/fileupload/')
+
+#     {
+#         "id": "9f4bc97f-917c-4f1d-b099-cd1d16ec7269",
+#         "title": "test",
+#         "certificate": "test",
+#         "file_path": "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82.mp4"
+#     }
+# ]
+# }
+    #1 Cоздаю объект в модели FilmWork
+    object_data = {"title": "test2", "certificate": "test2"}
+    file_path_new_2 = os.path.join("/usr", "src", "app", "тест.mp4")
+    model.add_one_object_to_table(object_data, file_path_new_2)
+
+    #2 получаею путь до файла в докере из модели filmwork
+    file_path_to_convert, film_to_convert_id = model.get_file_from_existing_object_by_id(object_id)
+
+    #3 отправляю полученный путь на конвертацию и получаю имя сконвертированного файла в докер волюме
+    converted_file_path = model.resize(file_path_to_convert, output_file_name)
+
+    #4 заливаю видео в модели fileupload
+    model.create_object_for_converted_video(converted_file_path, convert_model, film_to_convert_id)
+
