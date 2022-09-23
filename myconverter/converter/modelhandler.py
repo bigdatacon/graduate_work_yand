@@ -5,6 +5,10 @@ from rest_framework import status
 import ffmpeg
 import os
 import time
+from argparse import ArgumentParser
+# parser.add_argument("--target-host", type=str, default="127.0.0.1", help="Целевой хост")
+# args = parser.parse_args()
+# args = parser.parse_args()
 
 class ModelHandler:
     def __init__(self, model_url: str):
@@ -126,8 +130,8 @@ if __name__ == '__main__':
     time.sleep(5)
     output_file_name = "NEW_MOVIE2.mp4"
     object_id = "d90e9345-09c2-4d46-97a3-d6505b767f30"   # этот объект точно есть в модели
-    model = ModelHandler('http://127.0.0.1:8000/filmwork/')
-    convert_model = ModelHandler('http://127.0.0.1:8000/fileupload/')
+    model = ModelHandler('http://django:8000/filmwork/')
+    convert_model = ModelHandler('http://django:8000/fileupload/')
 
 # {
 #     "id": "d90e9345-09c2-4d46-97a3-d6505b767f30",
