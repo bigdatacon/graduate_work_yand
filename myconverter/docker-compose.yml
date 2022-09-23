@@ -35,8 +35,11 @@ services:
     build:
       context: converter
       dockerfile: Dockerfile
+    networks:
+      - movies_network
     depends_on:
       - postgres
+
 
 #  migration:
 #    image: uzman
