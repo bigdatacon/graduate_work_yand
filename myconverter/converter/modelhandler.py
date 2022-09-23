@@ -4,7 +4,7 @@ from typing import Optional
 from rest_framework import status
 import ffmpeg
 import os
-
+import time
 
 class ModelHandler:
     def __init__(self, model_url: str):
@@ -123,8 +123,9 @@ class ModelHandler:
 
 if __name__ == '__main__':
     #0 базовые параметры
+    time.sleep(5)
     output_file_name = "NEW_MOVIE2.mp4"
-    object_id = "9f4bc97f-917c-4f1d-b099-cd1d16ec7269"   # этот объект точно есть в модели
+    object_id = "d90e9345-09c2-4d46-97a3-d6505b767f30"   # этот объект точно есть в модели
     model = ModelHandler('http://127.0.0.1:8000/filmwork/')
     convert_model = ModelHandler('http://127.0.0.1:8000/fileupload/')
 
