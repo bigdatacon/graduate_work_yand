@@ -5,10 +5,8 @@ from rest_framework import status
 import ffmpeg
 import os
 import time
-from argparse import ArgumentParser
-# parser.add_argument("--target-host", type=str, default="127.0.0.1", help="Целевой хост")
-# args = parser.parse_args()
-# args = parser.parse_args()
+import argparse
+
 
 class ModelHandler:
     def __init__(self, model_url: str):
@@ -126,12 +124,28 @@ class ModelHandler:
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("target_host", type=str, default="127.0.0.1", help="Целевой хост")
+    args = parser.parse_args()
+    args = parser.parse_args()
+    if args.target_host == "127.0.0.1":
+        print("base url ")
+        api_base_url = "http://127.0.0.1:8000/"
+    else:
+        print("django url ")
+        api_base_url = "http://django:8000/"
+
+
     #0 базовые параметры
     time.sleep(5)
     output_file_name = "NEW_MOVIE2.mp4"
     object_id = "d90e9345-09c2-4d46-97a3-d6505b767f30"   # этот объект точно есть в модели
-    model = ModelHandler('http://django:8000/filmwork/')
-    convert_model = ModelHandler('http://django:8000/fileupload/')
+    # model = ModelHandler('http://django:8000/filmwork/')
+    # convert_model = ModelHandler('http://django:8000/fileupload/')
+
+    #use api_base_url
+    model = ModelHandler(f'{api_base_url}filmwork/')
+    convert_model = ModelHandler(f'{api_base_url}fileupload/')
 
 # {
 #     "id": "d90e9345-09c2-4d46-97a3-d6505b767f30",
