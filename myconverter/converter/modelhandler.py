@@ -34,7 +34,7 @@ class ModelHandler:
             fd = open(file_path.encode('utf-8'), 'rb')
             response = requests.post(f'{self.model_url}', object_data, files={'file_path': fd})
             assert  response.status_code == 201, 'not add object_data in function add_one_object_to_table'
-            return True
+            return response.json().get('id')
         except Exception as e:
             print(f'except in add_one_object_to_table : {e.args}')
             return False
@@ -105,6 +105,8 @@ class ModelHandler:
 
     def resize(self, input_file_path: str , output_file_path: str):
         file_path = input_file_path.split('/')[-1]
+        resp = requests.get(input_file_path)
+        file_path = open(os.path.join("/usr", "src", "app", file_path), "wb").write(resp.content)
         stream =  ffmpeg.input(os.path.join("/usr", "src", "app", file_path))
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
         stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
@@ -125,21 +127,20 @@ class ModelHandler:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("target_host", type=str, default="127.0.0.1", help="Целевой хост")
+    parser.add_argument("--target-host", type=str, default="127.0.0.1", help="Целевой хост")
     args = parser.parse_args()
-    args = parser.parse_args()
-    if args.target_host == "127.0.0.1":
-        print("base url ")
-        api_base_url = "http://127.0.0.1:8000/"
-    else:
-        print("django url ")
-        api_base_url = "http://django:8000/"
+    # if args.target_host == "127.0.0.1":
+    #     print("base url ")
+    api_base_url = f"http://{args.target_host}:8000/"
+    # else:
+    #     print("django url ")
+    #     api_base_url = "http://django:8000/"
 
 
     #0 базовые параметры
     time.sleep(5)
     output_file_name = "NEW_MOVIE2.mp4"
-    object_id = "d90e9345-09c2-4d46-97a3-d6505b767f30"   # этот объект точно есть в модели
+    # object_id = "d90e9345-09c2-4d46-97a3-d6505b767f30"   # этот объект точно есть в модели
     # model = ModelHandler('http://django:8000/filmwork/')
     # convert_model = ModelHandler('http://django:8000/fileupload/')
 
@@ -156,7 +157,7 @@ if __name__ == '__main__':
     #1 Cоздаю объект в модели FilmWork
     object_data = {"title": "test2", "certificate": "test2"}
     file_path_new_2 = os.path.join("/usr", "src", "app", "тест.mp4")
-    model.add_one_object_to_table(object_data, file_path_new_2)
+    object_id = model.add_one_object_to_table(object_data, file_path_new_2)
 
     #2 получаею путь до файла в докере из модели filmwork
     file_path_to_convert, film_to_convert_id = model.get_file_from_existing_object_by_id(object_id)

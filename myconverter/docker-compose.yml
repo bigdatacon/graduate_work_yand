@@ -37,6 +37,7 @@ services:
       dockerfile: Dockerfile
     networks:
       - movies_network
+    command: ["python", "modelhandler.py", "--target-host", "django"]
     depends_on:
       - postgres
 
