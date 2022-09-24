@@ -6,6 +6,7 @@ import ffmpeg
 import os
 import time
 import argparse
+import uuid
 
 
 class ModelHandler:
@@ -103,10 +104,11 @@ class ModelHandler:
         file_id = object_data.get('id')
         return file_path, file_id
 
-    def resize(self, input_file_path: str , output_file_path: str):
+    def resize(self, input_file_path: str):
         file_path = input_file_path.split('/')[-1]
+        output_file_path =  f"{uuid.uuid4()}.mp4"
         resp = requests.get(input_file_path)
-        file_path = open(os.path.join("/usr", "src", "app", file_path), "wb").write(resp.content)
+        open(os.path.join("/usr", "src", "app", file_path), "wb").write(resp.content)
         stream =  ffmpeg.input(os.path.join("/usr", "src", "app", file_path))
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
         stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
@@ -139,7 +141,7 @@ if __name__ == '__main__':
 
     #0 базовые параметры
     time.sleep(5)
-    output_file_name = "NEW_MOVIE2.mp4"
+    # output_file_name = "NEW_MOVIE2.mp4"
     # object_id = "d90e9345-09c2-4d46-97a3-d6505b767f30"   # этот объект точно есть в модели
     # model = ModelHandler('http://django:8000/filmwork/')
     # convert_model = ModelHandler('http://django:8000/fileupload/')
@@ -163,8 +165,10 @@ if __name__ == '__main__':
     file_path_to_convert, film_to_convert_id = model.get_file_from_existing_object_by_id(object_id)
 
     #3 отправляю полученный путь на конвертацию и получаю имя сконвертированного файла в докер волюме
-    converted_file_path = model.resize(file_path_to_convert, output_file_name)
+    converted_file_path = model.resize(file_path_to_convert)
 
     #4 заливаю видео в модели fileupload
     model.create_object_for_converted_video(converted_file_path, convert_model, film_to_convert_id)
+
+    print(f' eto fileupload : {os.listdir(".")[0]}')
 
