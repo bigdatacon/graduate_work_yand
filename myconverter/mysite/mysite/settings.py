@@ -142,3 +142,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR/"media"
+
+#ссылка важная
+#https://cloud.yandex.ru/docs/api-gateway/tutorials/alice-shareable-todolist
