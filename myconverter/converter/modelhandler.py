@@ -128,38 +128,60 @@ class ModelHandler:
 
 
 if __name__ == '__main__':
+    # # I Вариант для докера
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--target-host", type=str, default="127.0.0.1", help="Целевой хост")
+    # args = parser.parse_args()
+    # api_base_url = f"http://{args.target_host}:8000/"
+    # print(f' eto api_base_url : {api_base_url}')
+    # #0 базовые параметры
+    # time.sleep(5)
+    # model = ModelHandler(f'{api_base_url}filmwork/')
+    # convert_model = ModelHandler(f'{api_base_url}fileupload/')
+    # #1 Cоздаю объект в модели FilmWork
+    # object_data = {"title": "test2", "certificate": "test2"}
+    # file_path_new_2 = os.path.join("/usr", "src", "app", "тест.mp4")
+    # object_id = model.add_one_object_to_table(object_data, file_path_new_2)
+    # print(f' eto object_id : {object_id}')
+    #
+    # #2 получаею путь до файла в докере из модели filmwork
+    # file_path_to_convert, film_to_convert_id = model.get_file_from_existing_object_by_id(object_id)
+    #
+    # #3 отправляю полученный путь на конвертацию и получаю имя сконвертированного файла в докер волюме
+    # converted_file_path = model.resize(file_path_to_convert)
+    #
+    # #4 заливаю видео в модели fileupload
+    # model.create_object_for_converted_video(converted_file_path, convert_model, film_to_convert_id)
+    # print(f' eto fileupload : {os.listdir(".")[0]}')
+
+    # II Вариант без докера
+    # {
+    #     "id": "9a3986b7-74bb-48df-923b-6b130796d216",
+    #     "title": "test2",
+    #     "certificate": "test2",
+    #     "file_path": "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82_9nvnUYc.mp4"
+    # }
     parser = argparse.ArgumentParser()
     parser.add_argument("--target-host", type=str, default="127.0.0.1", help="Целевой хост")
     args = parser.parse_args()
-    # if args.target_host == "127.0.0.1":
-    #     print("base url ")
     api_base_url = f"http://{args.target_host}:8000/"
-    # else:
-    #     print("django url ")
-    #     api_base_url = "http://django:8000/"
-
-
+    print(f' eto api_base_url : {api_base_url}')
     #0 базовые параметры
-    time.sleep(5)
-    # output_file_name = "NEW_MOVIE2.mp4"
-    # object_id = "d90e9345-09c2-4d46-97a3-d6505b767f30"   # этот объект точно есть в модели
-    # model = ModelHandler('http://django:8000/filmwork/')
-    # convert_model = ModelHandler('http://django:8000/fileupload/')
-
-    #use api_base_url
     model = ModelHandler(f'{api_base_url}filmwork/')
     convert_model = ModelHandler(f'{api_base_url}fileupload/')
-
-# {
-#     "id": "d90e9345-09c2-4d46-97a3-d6505b767f30",
-#     "title": "test",
-#     "certificate": "test",
-#     "file_path": "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82_4c0oXm9.mp4"
-# }
     #1 Cоздаю объект в модели FilmWork
+    file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
+    # file_path = 'C:\\Yand_final_sprint\\myconverter\\converter\\тест.mp4'
     object_data = {"title": "test2", "certificate": "test2"}
-    file_path_new_2 = os.path.join("/usr", "src", "app", "тест.mp4")
-    object_id = model.add_one_object_to_table(object_data, file_path_new_2)
+
+    fd = open(file_path.encode('utf-8'), 'rb')
+    response = requests.post('http://127.0.0.1:8000/filmwork/', object_data, files={'file_path': fd})
+    object_id = response.json().get('id')
+    print(f' eto object_id : {object_id}')
+
+
+    # object_id = model.add_one_object_to_table(object_data, file_path)
+
 
     #2 получаею путь до файла в докере из модели filmwork
     file_path_to_convert, film_to_convert_id = model.get_file_from_existing_object_by_id(object_id)
@@ -169,6 +191,5 @@ if __name__ == '__main__':
 
     #4 заливаю видео в модели fileupload
     model.create_object_for_converted_video(converted_file_path, convert_model, film_to_convert_id)
-
     print(f' eto fileupload : {os.listdir(".")[0]}')
 
