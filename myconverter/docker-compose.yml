@@ -35,6 +35,8 @@ services:
     build:
       context: converter
       dockerfile: Dockerfile
+    volumes:
+      - ./converter/files:/data/static
     networks:
       - movies_network
     command: ["python", "modelhandler.py", "--target-host", "django"]
@@ -67,6 +69,7 @@ services:
 
 volumes:
   static_volume:
+  movies_streaming_converter_api:
 
 networks:
   movies_network:

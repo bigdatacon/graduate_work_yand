@@ -106,7 +106,7 @@ class ModelHandler:
 
     def resize(self, input_file_path: str):
         file_path = input_file_path.split('/')[-1]
-        output_file_path =  f"{uuid.uuid4()}.mp4"
+        output_file_path =  f"{uuid.uuid4()}"
         resp = requests.get(input_file_path)
         open(os.path.join("/usr", "src", "app", file_path), "wb").write(resp.content)
         stream =  ffmpeg.input(os.path.join("/usr", "src", "app", file_path))
