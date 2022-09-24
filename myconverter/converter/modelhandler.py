@@ -113,7 +113,7 @@ class ModelHandler:
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
         stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
         ffmpeg.run(stream)
-        return os.listdir(".")[0]
+        return f"{output_file_path}.mp4"
 
     def create_object_for_converted_video(self, convert_video_path:str, convert_model, file_id):
         object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1, 'film': file_id}
