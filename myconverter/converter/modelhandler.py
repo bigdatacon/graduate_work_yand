@@ -189,6 +189,9 @@ if __name__ == '__main__':
     # model.create_object_for_converted_video(converted_file_path, convert_model, film_to_convert_id)
     # print(f' eto fileupload : {os.listdir(".")[0]}')
 
+
+
+#########################################################################################################
     #II Вариант без докера
     {
         "id": "9a3986b7-74bb-48df-923b-6b130796d216",
