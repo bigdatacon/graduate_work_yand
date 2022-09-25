@@ -1,5 +1,5 @@
 import requests
-from  myconverter.converter.modelhandler import ModelHandler
+
 import os
 from rest_framework import status
 # from .models import FilmWork
@@ -149,8 +149,9 @@ print(file_path, type(file_path))
 # print(response.json().get('file_path'), response.json().get('id'))
 
 #2 Получаю путь до файла и id фильма по id
-response = requests.get("http://127.0.0.1:8000/filmwork/d90e9345-09c2-4d46-97a3-d6505b767f30")
-file_path_to_convert, film_to_convert_id = response.json().get('file_path'),   response.json().get('id')
+# response = requests.get("http://127.0.0.1:8000/filmwork/15543a8e-8901-4393-aca8-f8199ec42e2a")
+# file_path_to_convert, film_to_convert_id = response.json().get('file_path'),   response.json().get('id')
+file_path_to_convert, film_to_convert_id = 'http://127.0.0.1:8000/media/film_works/%D1%82%D0%B5%D1%81%D1%82_2paQaxx.mp4', '41ed4163-f907-4b9c-9dd2-0947ec067dc3'
 print(f'eto file_path_to_convert, film_to_convert_id: {file_path_to_convert, film_to_convert_id}')
 
 #3 resize не делаю но сразу пишу в fileupload
