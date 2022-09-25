@@ -43,6 +43,16 @@ services:
     depends_on:
       - postgres
 
+  converter_fast_api:
+    build:
+      context: fast_api
+      dockerfile: Dockerfile
+    networks:
+      - movies_network
+    command: ["python", "main.py"]
+    depends_on:
+      - postgres
+
 
 #  migration:
 #    image: uzman
