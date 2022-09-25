@@ -5,13 +5,13 @@ RUN apt-get update \
 
 EXPOSE 8001
 
-WORKDIR /fast_api
+WORKDIR /fast_api_converter
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-COPY requirements.txt .
+COPY requirements.txt /fast_api_converter/
 RUN pip install --upgrade pip && pip install -r requirements.txt --no-cache-dir
 
-COPY . .
+COPY . /fast_api_converter/
 CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8001", "main:app"]
