@@ -9,5 +9,5 @@ router = APIRouter()
 async def get_hw(
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
-    result = await modelhandler_service.get_model_object('http://127.0.0.1:8000/filmwork/')
+    result = await modelhandler_service.get_model_object()
     return result
