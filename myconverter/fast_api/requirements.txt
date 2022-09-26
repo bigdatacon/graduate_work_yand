@@ -8,3 +8,6 @@ sqlalchemy==1.4.35
 sqlmodel==0.0.6
 sqlalchemyseed==1.0.6
 uvicorn==0.18.2
+requests==2.27.1
+djangorestframework==3.13.1
+ffmpeg-python==0.2.0

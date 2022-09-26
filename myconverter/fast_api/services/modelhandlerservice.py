@@ -9,6 +9,7 @@ import os
 import time
 import argparse
 import uuid
+import requests
 
 
 class ModelHandler:
