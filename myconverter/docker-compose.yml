@@ -47,6 +47,8 @@ services:
     build:
       context: fast_api
       dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
     networks:
       - movies_network
     command: ["python", "main.py"]
