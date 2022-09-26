@@ -167,4 +167,4 @@ class ModelHandler:
 
 @lru_cache()
 def get_modelhandler_service() -> ModelHandler:
-    return ModelHandler('http://127.0.0.1:8000/filmwork/')
+    return ModelHandler('http://django:8000/filmwork/')
