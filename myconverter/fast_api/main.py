@@ -28,3 +28,4 @@ if __name__ == '__main__':
     file_path_to_convert = answer.get('file_path')
     object_id = answer.get('id')
     answer = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/'путь до файла'")
+    #end
