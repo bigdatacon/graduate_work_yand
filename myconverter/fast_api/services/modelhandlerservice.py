@@ -17,7 +17,7 @@ class ModelHandler:
         self.model_url = model_url
 
     #0
-    def get_model_object(self):
+    async def get_model_object(self):
         """
         Ensure we can get model objects
         """
