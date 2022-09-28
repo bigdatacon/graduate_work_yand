@@ -164,7 +164,13 @@ class ModelHandler:
             print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
             return False
 
+model_link = os.getenv('model_link', 'http://127.0.0.1:8000/')
+
+# @lru_cache()
+# def get_modelhandler_service() -> ModelHandler:
+#     return ModelHandler('http://127.0.0.1:8000/filmwork/')
+
 
 @lru_cache()
 def get_modelhandler_service() -> ModelHandler:
-    return ModelHandler('http://127.0.0.1:8000/filmwork/')
+    return ModelHandler(f'{model_link}filmwork/')
