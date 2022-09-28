@@ -11,3 +11,11 @@ async def get_model_object(
 ):
     result = await modelhandler_service.get_model_object()
     return result
+
+
+@router.get("/")
+async def get_model_object_by_id( film_uuid,
+        modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
+):
+    result = await modelhandler_service.get_model_object_by_id(film_uuid)
+    return result

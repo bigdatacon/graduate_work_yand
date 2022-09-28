@@ -25,7 +25,7 @@ class ModelHandler:
         return response.json()
 
     #1
-    def get_model_object_by_id(self, object_id : str):
+    async def get_model_object_by_id(self, object_id : str):
         """
         Ensure we can get object by id from table
         """
@@ -164,7 +164,7 @@ class ModelHandler:
             print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
             return False
 
-model_link = os.getenv('model_link', 'http://127.0.0.1:8000/')
+MODEL_LINK = os.getenv('MODEL_LINK', 'http://127.0.0.1:8000/')
 
 # @lru_cache()
 # def get_modelhandler_service() -> ModelHandler:
@@ -173,4 +173,4 @@ model_link = os.getenv('model_link', 'http://127.0.0.1:8000/')
 
 @lru_cache()
 def get_modelhandler_service() -> ModelHandler:
-    return ModelHandler(f'{model_link}filmwork/')
+    return ModelHandler(f'{MODEL_LINK}filmwork/')
