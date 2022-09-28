@@ -24,8 +24,9 @@ def main() -> None:
 if __name__ == '__main__':
     main()
     """добавляю получаения данных для конвертации видео"""
-    answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/efc94832-a392-4d68-b117-f90b5080218d")
-    file_path_to_convert = answer.get('file_path')
-    object_id = answer.get('id')
-    answer = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/'путь до файла'")
+    answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/efc94832-a392-4d68-b117-f90b5080218d")
+    print(f' eto answer.json: {answer.json()}')
+    # file_path_to_convert = answer.get('file_path')
+    # object_id = answer.get('id')
+    # answer = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/'путь до файла'")
     #end

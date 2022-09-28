@@ -13,7 +13,7 @@ async def get_model_object(
     return result
 
 
-@router.get("/")
+@router.get("/get_model_object_by_id")
 async def get_model_object_by_id(film_uuid,
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
@@ -21,7 +21,7 @@ async def get_model_object_by_id(film_uuid,
     return result
 
 
-@router.get("/")
+@router.get("/resize")
 async def resize(input_file_path,
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
