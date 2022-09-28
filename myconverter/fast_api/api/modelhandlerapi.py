@@ -6,7 +6,7 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_hw(
+async def get_model_object(
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
     result = await modelhandler_service.get_model_object()
