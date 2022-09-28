@@ -4,6 +4,7 @@ import uvicorn
 from core.logger import LOGGING
 from fastapi import FastAPI
 from api import apitesting, modelhandlerapi
+import requests
 
 
 app = FastAPI()
@@ -22,3 +23,8 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+    """добавляю получаения данных для конвертации видео"""
+    answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/efc94832-a392-4d68-b117-f90b5080218d")
+    file_path_to_convert = answer.get('file_path')
+    object_id = answer.get('id')
+    answer = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/'путь до файла'")

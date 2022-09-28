@@ -119,7 +119,7 @@ class ModelHandler:
         file_id = object_data.get('id')
         return file_path, file_id
 
-    def resize(self, input_file_path: str):
+    async def resize(self, input_file_path: str):
         file_path = input_file_path.split('/')[-1]
         output_file_path =  f"{uuid.uuid4()}"
         resp = requests.get(input_file_path)
@@ -130,7 +130,7 @@ class ModelHandler:
         ffmpeg.run(stream)
         return f"{output_file_path}.mp4"
 
-    def resize_no_docker(self, input_file_path: str):
+    async def resize_no_docker(self, input_file_path: str):
         print(f' eto input_file_path : {input_file_path}')
         file_path = input_file_path.split('/')[-1]
         print(f'eto file_path : {file_path}')

@@ -4,7 +4,7 @@ from typing import Optional
 from rest_framework import status
 import ffmpeg
 import os
-from ffmpeg import probe
+
 
 class ModelHandler:
     def __init__(self, model_url: str):
@@ -115,10 +115,7 @@ class ModelHandler:
         stream = ffmpeg.output(stream, "C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4")
         ffmpeg.run(stream)
 
-    def test_ffmpeg(self):
-        file = "C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4"
-        media_file = file
-        print(ffmpeg.probe(media_file)["streams"])
+
 
 
     #6
@@ -128,20 +125,81 @@ class ModelHandler:
         return  self.vid_resize(f'{vid_path}', output_path = f'{output_path}', width = width)
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
-    # print("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
-    # id = '763af035-a450-4e62-931b-d59815c3d028'
-    # print(f'"http://127.0.0.1:8000/filmwork/{id}"')
-    model = ModelHandler('http://127.0.0.1:8000/filmwork/')
-    # print(model.convert_video('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\NEW_MOVIE.mp4', width=250))
-    # print(model.update_object_by_id('fsdfsd', '554564', 'fdsfsdfs', 'file_path').values)
-    # print(model.add_many_object_to_table(object_title='test_optinal',  path ='C:\\Yand_final_sprint\\myconverter\\mysite\\files'))
-    # print(model.test_ffmpeg())
-    print(model.resize())
+    # model = ModelHandler('http://127.0.0.1:8000/filmwork/')
+    # print(model.resize())
+
+    # # I Вариант для докера
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--target-host", type=str, default="127.0.0.1", help="Целевой хост")
+    # args = parser.parse_args()
+    # api_base_url = f"http://{args.target_host}:8000/"
+    # print(f' eto api_base_url : {api_base_url}')
+    # #0 базовые параметры
+    # time.sleep(5)
+    # model = ModelHandler(f'{api_base_url}filmwork/')
+    # convert_model = ModelHandler(f'{api_base_url}fileupload/')
+    # #1 Cоздаю объект в модели FilmWork
+    # object_data = {"title": "test2", "certificate": "test2"}
+    # file_path_new_2 = os.path.join("/usr", "src", "app", "тест.mp4")
+    # object_id = model.add_one_object_to_table(object_data, file_path_new_2)
+    # print(f' eto object_id : {object_id}')
+    #
+    # #2 получаею путь до файла в докере из модели filmwork
+    # file_path_to_convert, film_to_convert_id = model.get_file_from_existing_object_by_id(object_id)
+    #
+    # #3 отправляю полученный путь на конвертацию и получаю имя сконвертированного файла в докер волюме
+    # converted_file_path = model.resize(file_path_to_convert)
+
+    # model.create_object_for_converted_video(converted_file_path, convert_model, film_to_convert_id)
+    # print(f' eto fileupload : {os.listdir(".")[0]}')
+
+    # II Вариант без докера
+    # {
+    #     "id": "9a3986b7-74bb-48df-923b-6b130796d216",
+    #     "title": "test2",
+    #     "certificate": "test2",
+    #     "file_path": "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82_9nvnUYc.mp4"
+    # }
+    # II Вариант без докера
+    {
+        "id": "9a3986b7-74bb-48df-923b-6b130796d216",
+        "title": "test2",
+        "certificate": "test2",
+        "file_path": "http://127.0.0.1:8000/film_works/%D1%82%D0%B5%D1%81%D1%82_9nvnUYc.mp4"
+    }
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--target-host", type=str, default="127.0.0.1", help="Целевой хост")
+    args = parser.parse_args()
+    api_base_url = f"http://{args.target_host}:8000/"
+    print(f' eto api_base_url : {api_base_url}')
+    # 0 базовые параметры
+    model = ModelHandler(f'{api_base_url}filmwork/')
+    convert_model = ModelHandler(f'{api_base_url}fileupload/')
+    # 1 Cоздаю объект в модели FilmWork
+    file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
+    # file_path = 'C:\\Yand_final_sprint\\myconverter\\converter\\тест.mp4'
+    # file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
+    file_path = 'C:\\Yand_final_sprint\\myconverter\\converter\\тест.mp4'
+    object_data = {"title": "test2", "certificate": "test2"}
+
+    fd = open(file_path.encode('utf-8'), 'rb')
+    response = requests.post('http://127.0.0.1:8000/filmwork/', object_data, files={'file_path': fd})
+    object_id = response.json().get('id')
+    print(f' eto object_id : {object_id}')
+    # object_id = model.add_one_object_to_table(object_data, file_path)
+
+    # 2 получаею путь до файла в докере из модели filmwork
+    file_path_to_convert, film_to_convert_id = model.get_file_from_existing_object_by_id(object_id)
+    print(f' eto  file_path_to_convert, film_to_convert_id : {file_path_to_convert, film_to_convert_id}')
+
+    # 3 отправляю полученный путь на конвертацию и получаю имя сконвертированного файла в докер волюме
+    converted_file_path = model.resize(file_path_to_convert)
+    # 3 отправляю полученный путь на конвертацию и получаю имя сконвертированного файла в докер волюме - не работает вне докера поэтому закоментировано сейчас
+    # converted_file_path = model.resize_no_docker(file_path_to_convert)
+
+    # 4 заливаю видео в модели fileupload
+    model.create_object_for_converted_video(converted_file_path, convert_model, film_to_convert_id)
+    print(f' eto fileupload : {os.listdir(".")[0]}')
+    model.create_object_for_converted_video_no_docker(file_path_to_convert, convert_model, object_id)
+    print(f' eto fileupload : {os.listdir(".")}')
