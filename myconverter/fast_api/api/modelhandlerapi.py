@@ -21,7 +21,7 @@ async def get_model_object_by_id(film_uuid,
     return result
 
 
-@router.get("/resize")
+@router.post("/resize")
 async def resize(input_file_path,
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
