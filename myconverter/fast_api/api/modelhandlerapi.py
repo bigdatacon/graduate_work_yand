@@ -14,7 +14,7 @@ async def get_model_object(
 
 
 
-@router.get("/add_one_object_to_table")
+@router.post("/add_one_object_to_table")
 async def get_model_object_by_id(object_data: dict, file_path : Optional[str]= None,
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
