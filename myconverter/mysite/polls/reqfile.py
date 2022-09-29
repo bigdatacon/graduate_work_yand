@@ -71,11 +71,12 @@ from rest_framework import status
 #Answer AttributeError: module 'requests' has no attribute 'update'
 
 # model_url = 'http://127.0.0.1:8000/filmwork/'
-# object_data = {"title": "test", "certificate": "test"}
+object_data = {"title": "test", "certificate": "test"}
 # file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
-# file_path_new =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
+file_path_new =  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'files', 'тест.mp4')    # 'C:Yand_final_sprint\myconverter\mysite\polls\files\тест.mp4'
 # file_path = os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'polls', 'files', 'тест.mp4')
 # fd = open(file_path.encode('utf-8'), 'rb')
+fd = open(file_path_new.encode('utf-8'), 'rb')
 #get_model_object_by_id
 # print("http://127.0.0.1:8000/filmwork/763af035-a450-4e62-931b-d59815c3d028")
 # id = '763af035-a450-4e62-931b-d59815c3d028'
@@ -90,9 +91,9 @@ from rest_framework import status
 
 # add_one_object_to_table(self, object_data: dict):
 
-# response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
-#                          files={'file_path': fd})
-# print(response.status_code, response.json())
+response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
+                         files={'file_path': fd})
+print(f' в тесте reqfile : {response.status_code, response.json()}')
 
 # response = requests.post(f'{model_url}', object_data,
 #                          files={'file_path': fd})
