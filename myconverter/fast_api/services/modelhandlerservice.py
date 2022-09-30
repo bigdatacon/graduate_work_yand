@@ -132,7 +132,7 @@ class ModelHandler:
         return f"{output_file_path}.mp4"
 
     async def resize_no_docker(self, input_file_path: str):
-        print(f' eto input_file_path : {input_file_path}')
+        print(f' eto input_file_path in resize_no_docker : {input_file_path}')
         file_path = input_file_path.split('/')[-1]
         print(f'eto file_path : {file_path}')
         output_file_path =  f"{uuid.uuid4()}"
