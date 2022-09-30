@@ -36,3 +36,11 @@ async def resize(input_file_path,
 ):
     result = await modelhandler_service.resize(input_file_path)
     return result
+
+
+@router.post("/resize_no_docker")
+async def resize(input_file_path,
+        modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
+):
+    result = await modelhandler_service.resize(input_file_path)
+    return result
