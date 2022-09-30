@@ -52,3 +52,12 @@ print(f' eto converted_file_path: {converted_file_path.json()}')
 converted_file_path = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/?file_path_to_convert_from_stroka_15")
 print(f' eto converted_file_path_from_stroka_15: {converted_file_path.json()}')
 
+
+
+#II resize_no_docker
+converted_file_path = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize_no_docker/?file_path_to_convert")
+print(f' eto converted_file_path: {converted_file_path.json()}')
+
+
+converted_file_path = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize_no_docker/?file_path_to_convert_from_stroka_15")
+print(f' eto converted_file_path_from_stroka_15: {converted_file_path.json()}')
