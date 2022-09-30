@@ -10,8 +10,13 @@ print('начат main')
 #0 Внимание вот такой код точно добавляет данные в reqfile.py
 #!!!! Вот такой путь не видит os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'files', 'тест.mp4')
 object_data = {"title": "test", "certificate": "test"}
-file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
-fd = open(file_path.encode('utf-8'), 'rb')
+# file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
+
+file_path = os.path.join("..", "mysite", "files", "test.mp4")
+
+# print(f" eto file_path : {file_path}, eto  os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'files', 'тест.mp4') : {os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'files', 'тест.mp4')}")
+fd = open(file_path, 'rb')
+print(dir('..\mysite\\files\'))
 response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
                          files={'file_path': fd})
 print(f' в тесте fatests : {response.status_code, response.json()}')
