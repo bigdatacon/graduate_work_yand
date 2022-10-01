@@ -39,7 +39,7 @@ async def resize(input_file_path,
 
 
 @router.post("/resize_no_docker")
-async def resize(input_file_path,
+async def resize_no_docker(input_file_path,
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
     result = await modelhandler_service.resize_no_docker(input_file_path)
