@@ -20,7 +20,7 @@ async def add_one_object_to_table(object_data: dict, file_path : Optional[str]= 
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
     result = await modelhandler_service.add_one_object_to_table(object_data, file_path)
-    return result.json()
+    return result
 
 
 @router.get("/get_model_object_by_id")
