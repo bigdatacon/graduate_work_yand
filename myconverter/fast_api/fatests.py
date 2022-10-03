@@ -10,6 +10,13 @@ import sys
 #0 Внимание вот такой код точно добавляет данные в reqfile.py
 #!!!! Вот такой путь не видит os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'files', 'тест.mp4')
 object_data = {"title": "test", "certificate": "test"}
+
+# title =  "test"
+# certificate = "testcertificate"
+
+title =  {"title": "test"}
+certificate = {"certificate": "test"}
+
 # file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
 
 file_path = os.path.join("..", "mysite", "files", "тест.mp4")
@@ -35,7 +42,8 @@ try:
     # response = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/?object_data=object_data&file_path=fd")
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", json=object_data, files=fd)
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data=object_data, file_path=file_path)
-    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data, files={'file_path': fd})
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data, files={'file_path': fd})
+    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", title, certificate, files={'file_path': fd})
     if response.status_code != 201:
         print(f"Error ....")
         print(response.json())
