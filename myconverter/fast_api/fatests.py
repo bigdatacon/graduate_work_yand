@@ -1,7 +1,7 @@
 import requests
 import os
 print('начат main')
-
+import sys
 
 # answer = requests.get("http://127.0.0.1:8001/api/v1/apitesting")
 # answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi")
@@ -36,8 +36,10 @@ try:
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", json=object_data, files=fd)
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data=object_data, file_path=file_path)
     response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data, files={'file_path': fd})
-    assert response.status_code == 201, 'not add object_data in function add_one_object_to_table'
-    print(f' eto response.json() : {response.json()}')
+    if response.status_code != 201:
+        print(f"Error ....")
+        print(response.json())
+        sys.exit(1)
 except Exception as e:
     print(f'except in add_one_object_to_table : {e.args}')
 
