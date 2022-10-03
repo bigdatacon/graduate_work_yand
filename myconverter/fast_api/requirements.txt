@@ -11,3 +11,4 @@ uvicorn==0.18.2
 requests==2.27.1
 djangorestframework==3.13.1
 ffmpeg-python==0.2.0
+python-multipart

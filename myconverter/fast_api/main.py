@@ -2,8 +2,9 @@ import logging
 
 import uvicorn
 from core.logger import LOGGING
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 from api import apitesting, modelhandlerapi
+import shutil
 import requests
 
 
