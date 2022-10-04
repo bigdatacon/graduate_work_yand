@@ -2,7 +2,7 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, Header, File, UploadFile
 from services.modelhandlerservice import ModelHandler, get_modelhandler_service
 import shutil
-from fastapi import Query
+from fastapi import Query, File, UploadFile
 
 router = APIRouter()
 
@@ -17,10 +17,18 @@ async def get_model_object(
 
 
 @router.post("/add_one_object_to_table")
-async def add_one_object_to_table(title= Query(None, alias='title'), certificate=Query(None, alias='certificate'), file_path : Optional[str]= None,
-        modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
+async def add_one_object_to_table(
+    file_path: UploadFile,
+    title=Query(None, alias='title'),
+    certificate=Query(None, alias='certificate'),
+    modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
-    result = await modelhandler_service.add_one_object_to_table(title, certificate, file_path)
+    print(dir(file_path))
+    print(file_path)
+    print(file_path.filename)
+    print(file_path.file)
+    print(dir(file_path.file))
+    result = await modelhandler_service.add_one_object_to_table({'title': title, 'certificate': certificate}, file_path=file_path)
     return result
 
 

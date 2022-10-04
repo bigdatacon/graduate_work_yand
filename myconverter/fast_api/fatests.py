@@ -27,7 +27,8 @@ fd = open(file_path, 'rb')
 response = requests.post("http://127.0.0.1:8000/filmwork/", {"title": "test", "certificate": "test"},
                          files={'file_path': fd})
 print(f' в тесте fatests : {response.status_code, response.json()}')
-
+fd.close()
+fd = open(file_path, 'rb')
 
 
 
