@@ -10,6 +10,8 @@ import time
 import argparse
 import uuid
 import requests
+from fastapi import UploadFile, File
+from io import BytesIO
 
 
 class ModelHandler:
@@ -33,15 +35,25 @@ class ModelHandler:
         return response.json()
 
     #2
-    async def add_one_object_to_table(self, object_data: dict, file_path : Optional[str]= None):
+    # async def add_one_object_to_table(self, object_data: dict, file_path : Optional[str]= None): - СТАРОЕ
+    #     try:
+    #         fd = open(file_path.encode('utf-8'), 'rb')
+    #         response = requests.post(f'{self.model_url}', object_data, files={'file_path': fd})
+    #         assert  response.status_code == 201, 'not add object_data in function add_one_object_to_table'
+    #         return response.json().get('id')
+    #     except Exception as e:
+    #         print(f'except in add_one_object_to_table : {e.args}')
+    #         return False
+
+    async def add_one_object_to_table(self, object_data: dict, file_path: UploadFile):
         try:
-            fd = open(file_path.encode('utf-8'), 'rb')
-            response = requests.post(f'{self.model_url}', object_data, files={'file_path': fd})
-            assert  response.status_code == 201, 'not add object_data in function add_one_object_to_table'
+            response = requests.post(f'{self.model_url}', object_data, files={'file_path': file_path.file})
+            if response.status_code != 201:
+                print(response.json())
             return response.json().get('id')
         except Exception as e:
             print(f'except in add_one_object_to_table : {e.args}')
-            return False
+            raise
 
     async def add_one_object_to_table_no_docker(self, object_data: dict, file_path : Optional[str]= None):
         object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5,

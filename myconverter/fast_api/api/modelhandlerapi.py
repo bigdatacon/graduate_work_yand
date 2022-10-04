@@ -16,13 +16,27 @@ async def get_model_object(
 
 
 
-@router.post("/add_one_object_to_table")
-async def add_one_object_to_table(title= Query(None, alias='title'), certificate=Query(None, alias='certificate'), file_path : Optional[str]= None,
-        modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
-):
-    result = await modelhandler_service.add_one_object_to_table(title, certificate, file_path)
-    return result
+# @router.post("/add_one_object_to_table") - старое
+# async def add_one_object_to_table(title= Query(None, alias='title'), certificate=Query(None, alias='certificate'), file_path : Optional[str]= None,
+#         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
+# ):
+#     result = await modelhandler_service.add_one_object_to_table(title, certificate, file_path)
+#     return result
 
+@router.post("/add_one_object_to_table")
+async def add_one_object_to_table(
+    file_path: UploadFile,
+    title=Query(None, alias='title'),
+    certificate=Query(None, alias='certificate'),
+    modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
+):
+    print(dir(file_path))
+    print(file_path)
+    print(file_path.filename)
+    print(file_path.file)
+    print(dir(file_path.file))
+    result = await modelhandler_service.add_one_object_to_table({'title': title, 'certificate': certificate}, file_path=file_path)
+    return result
 
 @router.get("/get_model_object_by_id")
 async def get_model_object_by_id(film_uuid,
