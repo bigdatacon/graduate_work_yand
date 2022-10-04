@@ -48,12 +48,27 @@ file_path = str(os.path.join("..", "..", "mysite", "files", "тест.mp4"))
 # print(f' eto converted_file_path: {converted_file_path.json()}')
 
 
-#тестирую загрузку файла из базы
+#4тестирую загрузку файла из базы - не работает
 # file_path = 'http://127.0.0.1:8000/media/film_works/%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
 # file_path= 'http://127.0.0.1:8000//media//film_works//%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
 # file_path= 'http://django:8000//media//film_works//%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
-file_path= 'http://django:8000//media/film_works/%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
+# file_path= 'http://django:8000//media/film_works/%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
+# url = 'http://127.0.0.1:8001/upload_to'
+# file = {'file': open(file_path, 'rb')}
+# resp = requests.post(url=url, files=file)
+# print(resp.json(), resp.json().get('file_name'))
+
+
+#5 тестирую загрузку через преобразование файла
+input_file_path = 'http://127.0.0.1:8000//media//film_works//%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
+# input_file_path = 'http://127.0.0.1:8000/media/film_works/%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
+file_path = input_file_path.split('/')[-1]
+resp = requests.get(input_file_path)
+print(resp.json())
+open(os.path.join(".", file_path), "wb").write(resp.content)
+
+
 url = 'http://127.0.0.1:8001/upload_to'
-file = {'file': open(file_path, 'rb')}
+file = {'file': open(os.path.join(".", file_path), 'rb')}
 resp = requests.post(url=url, files=file)
 print(resp.json(), resp.json().get('file_name'))
