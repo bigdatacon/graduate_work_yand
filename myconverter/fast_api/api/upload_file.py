@@ -28,21 +28,32 @@ app = FastAPI()
 
 # file_path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4'
 
-#I тестирование функции upload
+#I тестирование функции upload - не работает
 file_path = str(os.path.join("..", "..", "mysite", "files", "тест.mp4"))
 # url = 'http://127.0.0.1:8001/upload'
 # file = {'file': open(file_path, 'rb')}
 # resp = requests.post(url=url, files=file)
 # print(resp.json())
 
-#II тестирование функции root
+#II тестирование функции root - работает
+# url = 'http://127.0.0.1:8001/upload_to'
+# file = {'file': open(file_path, 'rb')}
+# resp = requests.post(url=url, files=file)
+# print(resp.json(), resp.json().get('file_name'))
+
+
+#III тестирование resize - не работает
+# file_to_resize = str(os.path.join("..", "тест.mp4"))
+# converted_file_path = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/?file_to_resize")
+# print(f' eto converted_file_path: {converted_file_path.json()}')
+
+
+#тестирую загрузку файла из базы
+# file_path = 'http://127.0.0.1:8000/media/film_works/%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
+# file_path= 'http://127.0.0.1:8000//media//film_works//%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
+# file_path= 'http://django:8000//media//film_works//%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
+file_path= 'http://django:8000//media/film_works/%D1%82%D0%B5%D1%81%D1%82_gw8Xhcs.mp4'
 url = 'http://127.0.0.1:8001/upload_to'
 file = {'file': open(file_path, 'rb')}
 resp = requests.post(url=url, files=file)
 print(resp.json(), resp.json().get('file_name'))
-
-
-#III тестирование resize
-file_to_resize = str(os.path.join("..", "тест.mp4"))
-converted_file_path = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/?file_to_resize")
-print(f' eto converted_file_path: {converted_file_path.json()}')
