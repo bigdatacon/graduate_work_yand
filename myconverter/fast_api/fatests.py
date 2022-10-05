@@ -47,7 +47,8 @@ try:
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize_no_docker/",
     #                          files={'file_path': fd})
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", title, certificate, files={'file_path': fd})
-    # if response.status_code != 201:
+    if response.status_code >= 400:
+        sys.exit(1)
     print(f"RESULT ....")
     print(response.json())
     # print(f' eto response from add_one_object_to_table : {response}')
