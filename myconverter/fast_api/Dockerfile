@@ -1,7 +1,7 @@
 FROM tiangolo/uvicorn-gunicorn:python3.9-slim
 
 RUN apt-get update \
-    && apt-get -y install libpq-dev gcc
+    && apt-get -y install libpq-dev gcc && apt-get install -y ffmpeg
 
 EXPOSE 8001
 
