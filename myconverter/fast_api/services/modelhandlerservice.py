@@ -147,8 +147,8 @@ class ModelHandler:
         filename = input_file_path.filename
         file = input_file_path.file
         output_file_path = f"{uuid.uuid4()}"
-        open(os.path.join("/fast_api", "iterim_file.mp4"), "wb").write(file)
-        stream =  ffmpeg.input("/fast_api", "iterim_file.mp4")
+        open("iterim_file.mp4", "wb").write(file.read())
+        stream =  ffmpeg.input("iterim_file.mp4")
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
         stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
         ffmpeg.run(stream)
