@@ -56,6 +56,7 @@ try:
 except Exception as e:
     print(f'except in add_one_object_to_table : {e.args}')
 
+fd.close()
 fd = open(file_path, 'rb')
 try:
     print(f'start resize')
