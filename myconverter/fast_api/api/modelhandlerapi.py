@@ -47,7 +47,7 @@ async def get_model_object_by_id(film_uuid,
 
 
 @router.post("/resize")
-async def resize(input_file_path,
+async def resize(input_file_path: UploadFile,
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
     result = await modelhandler_service.resize(input_file_path)

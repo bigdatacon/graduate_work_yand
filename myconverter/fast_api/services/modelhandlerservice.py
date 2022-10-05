@@ -131,7 +131,19 @@ class ModelHandler:
         file_id = object_data.get('id')
         return file_path, file_id
 
-    async def resize(self, input_file_path: str):
+    # async def resize(self, input_file_path: str):
+    #     file_path = input_file_path.split('/')[-1]
+    #     output_file_path =  f"{uuid.uuid4()}"
+    #     resp = requests.get(input_file_path)
+    #     print(f'eto in resize resp.json : {resp.json()}')
+    #     open(os.path.join("/fast_api_converter", file_path), "wb").write(resp.content)
+    #     stream =  ffmpeg.input(os.path.join("/fast_api_converter", file_path))
+    #     stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
+    #     stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
+    #     ffmpeg.run(stream)
+    #     return f"{output_file_path}.mp4"
+
+    async def resize(self, input_file_path: UploadFile):
         file_path = input_file_path.split('/')[-1]
         output_file_path =  f"{uuid.uuid4()}"
         resp = requests.get(input_file_path)
@@ -143,19 +155,6 @@ class ModelHandler:
         ffmpeg.run(stream)
         return f"{output_file_path}.mp4"
 
-    # async def resize_no_docker(self, input_file_path: str):
-    #     print(f' eto input_file_path in resize_no_docker : {input_file_path}')
-    #     file_path = input_file_path.split('/')[-1]
-    #     print(f'eto file_path : {file_path}')
-    #     output_file_path =  f"{uuid.uuid4()}"
-    #     resp = requests.get(input_file_path)
-    #     print(f'eto resp.json() : {resp}')
-    #
-    #     stream =  ffmpeg.input(input_file_path)
-    #     stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
-    #     stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
-    #     ffmpeg.run(stream)
-    #     return f"{output_file_path}.mp4"
 
     async def resize_no_docker(self, input_file_path: UploadFile):
         print(f' eto input_file_path in resize_no_docker : {input_file_path}')

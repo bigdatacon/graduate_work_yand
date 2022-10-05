@@ -63,7 +63,7 @@ try:
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", json=object_data, files=fd)
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data=object_data, file_path=file_path)
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data, files={'file_path': fd})
-    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize_no_docker/",
+    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/",
                              files={'file_path': fd})
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", title, certificate, files={'file_path': fd})
     # if response.status_code != 201:
