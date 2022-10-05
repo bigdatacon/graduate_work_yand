@@ -44,6 +44,8 @@ try:
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", json=object_data, files=fd)
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data=object_data, file_path=file_path)
     response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data, files={'file_path': fd})
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize_no_docker/",
+    #                          files={'file_path': fd})
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", title, certificate, files={'file_path': fd})
     # if response.status_code != 201:
     print(f"RESULT ....")
@@ -54,6 +56,23 @@ except Exception as e:
     print(f'except in add_one_object_to_table : {e.args}')
 
 
+try:
+    print(f'start resize')
+    # response = requests.get(f"http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/?object_data={object_data}&file_path={fd}")
+    # response = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/?object_data=object_data&file_path=fd")
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", json=object_data, files=fd)
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data=object_data, file_path=file_path)
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", object_data, files={'file_path': fd})
+    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize_no_docker/",
+                             files={'file_path': fd})
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/", title, certificate, files={'file_path': fd})
+    # if response.status_code != 201:
+    print(f"RESULT RESIZE ....")
+    print(response.json())
+    # print(f' eto response from add_one_object_to_table : {response}')
+    sys.exit(1)
+except Exception as e:
+    print(f'except in add_one_object_to_table : {e.args}')
 
 
 
