@@ -144,12 +144,10 @@ class ModelHandler:
     #     return f"{output_file_path}.mp4"
 
     async def resize(self, input_file_path: UploadFile):
-        file_path = input_file_path.split('/')[-1]
-        output_file_path =  f"{uuid.uuid4()}"
-        resp = requests.get(input_file_path)
-        print(f'eto in resize resp.json : {resp.json()}')
-        open(os.path.join("/fast_api_converter", file_path), "wb").write(resp.content)
-        stream =  ffmpeg.input(os.path.join("/fast_api_converter", file_path))
+        filename = input_file_path.filename
+        file = input_file_path.file
+        output_file_path = f"{uuid.uuid4()}"
+        stream =  ffmpeg.input(os.path.join("/fast_api_converter", file))
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
         stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
         ffmpeg.run(stream)

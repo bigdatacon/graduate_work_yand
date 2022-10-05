@@ -56,7 +56,7 @@ try:
 except Exception as e:
     print(f'except in add_one_object_to_table : {e.args}')
 
-
+fd = open(file_path, 'rb')
 try:
     print(f'start resize')
     # response = requests.get(f"http://127.0.0.1:8001/api/v1/modelhandlerapi/add_one_object_to_table/?object_data={object_data}&file_path={fd}")
