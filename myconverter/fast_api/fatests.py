@@ -71,6 +71,7 @@ try:
     # if response.status_code != 201:
     print(f"RESULT RESIZE ....")
     print(response.json())
+    print(f' eto fileupload : {os.listdir(".")}')
     # print(f' eto response from add_one_object_to_table : {response}')
     # sys.exit(1)
 except Exception as e:
