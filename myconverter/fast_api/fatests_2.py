@@ -6,7 +6,8 @@ import uuid
 
 #1 скачиваю файл, путь до видео идет почему то c django - но так сеть не видит, поэтому делаю replace на 127.0.0.1
 film_uuid="9f4bc97f-917c-4f1d-b099-cd1d16ec7269"
-answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid=9f4bc97f-917c-4f1d-b099-cd1d16ec7269")
+# answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid=9f4bc97f-917c-4f1d-b099-cd1d16ec7269")
+answer = requests.get(f"http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid={film_uuid}")
 print(f'here answer.json for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
 file_path_from_database = answer.json().get("file_path").replace('django', '127.0.0.1')
 output_file_path = f"{uuid.uuid4()}loaded.mp4"
@@ -18,7 +19,8 @@ print('WRITE')
 
 
 #2 закидываю полученный файл в resize
-file_path = os.path.join("./loaded", "dd9b7e11-4c4d-4af6-93cf-bc9e9d62ace6loaded.mp4")
+# file_path = os.path.join("./loaded", "dd9b7e11-4c4d-4af6-93cf-bc9e9d62ace6loaded.mp4")
+file_path = os.path.join(f'./loaded/{output_file_path}')
 fd = open(file_path, 'rb')
 try:
     print(f'start resize')

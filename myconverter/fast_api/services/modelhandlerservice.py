@@ -159,9 +159,9 @@ class ModelHandler:
 
 
 
-    async def create_object_for_converted_video(self, convert_video_path:str, convert_model, file_id):
+    async def create_object_for_converted_video(self, convert_video_path: UploadFile, convert_model, file_id):
         object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1, 'film': file_id}
-        file_path_new_2 = os.path.join("/usr", "src", "app", convert_video_path)
+        file_path_new_2 = os.path.join("/fast_api_converter", convert_video_path)
 
         try:
             convert_model.add_one_object_to_table(object_data, file_path_new_2)
@@ -170,14 +170,18 @@ class ModelHandler:
             print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
             return False
 
-    async def create_object_for_converted_video_no_docker(self, convert_video_path:str, convert_model, file_id):
-        object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1, 'film': file_id}
-        try:
-            convert_model.add_one_object_to_table_no_docker(object_data, convert_video_path)
-            return True
-        except Exception as e:
-            print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
-            return False
+    # async def create_object_for_converted_video(self, convert_video_path:str, convert_model, file_id):
+    #     object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1, 'film': file_id}
+    #     file_path_new_2 = os.path.join("/usr", "src", "app", convert_video_path)
+    #
+    #     try:
+    #         convert_model.add_one_object_to_table(object_data, file_path_new_2)
+    #         return True
+    #     except Exception as e:
+    #         print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
+    #         return False
+
+
 
 MODEL_LINK = os.getenv('MODEL_LINK', 'http://127.0.0.1:8000/')
 
