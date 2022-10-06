@@ -166,6 +166,7 @@ class ModelHandler:
 
         try:
             convert_model.add_one_object_to_table(object_data, file_path_new_2)
+            file_path_new_2.close()
             return True
         except Exception as e:
             print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
