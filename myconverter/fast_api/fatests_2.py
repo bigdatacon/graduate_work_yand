@@ -50,7 +50,11 @@ response = requests.post("http://127.0.0.1:8000/fileupload/", object_data,
 
 print(f' в тесте ответ после загрузки в fileupload: {response.status_code, response.json()}')
 fd.close()
-# закидываю файл полученный от resize в таблицу fileupload через api
+
+
+
+
+#4 закидываю файл полученный от resize в таблицу fileupload через api
 
 # fd = open(file_path_after_resize, 'rb')
 try:
