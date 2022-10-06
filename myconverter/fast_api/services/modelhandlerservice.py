@@ -155,19 +155,9 @@ class ModelHandler:
         return f"{output_file_path}.mp4"
 
 
-    async def resize_no_docker(self, input_file_path: UploadFile):
-        print(f' eto input_file_path in resize_no_docker : {input_file_path}')
-        file_path = input_file_path.split('/')[-1]
-        print(f'eto file_path : {file_path}')
-        output_file_path =  f"{uuid.uuid4()}"
-        resp = requests.get(input_file_path)
-        print(f'eto resp.json() : {resp.json()}')
+    # async def resize_with_upload(self, object_id : str):
 
-        stream =  ffmpeg.input(input_file_path)
-        stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
-        stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
-        ffmpeg.run(stream)
-        return f"{output_file_path}.mp4"
+
 
     async def create_object_for_converted_video(self, convert_video_path:str, convert_model, file_id):
         object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1, 'film': file_id}

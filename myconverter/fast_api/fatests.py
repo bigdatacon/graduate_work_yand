@@ -2,10 +2,37 @@ import requests
 import os
 print('начат main')
 import sys
+import uuid
 
 # answer = requests.get("http://127.0.0.1:8001/api/v1/apitesting")
 # answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi")
-# answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid=efc94832-a392-4d68-b117-f90b5080218d")
+
+
+#00 Пытаюсь скачать фильма из базы
+# def load_one(self, input_file_path: UploadFile):
+#     filename = input_file_path.filename
+#     file = input_file_path.file
+#     output_file_path = f"{uuid.uuid4()}"
+#     open("iterim_file.mp4", "wb").write(file.read())
+#
+# def load_two(file: UploadFile = File(...)):
+#     with open('test.mp4', 'wb') as buffer:
+#         shutil.copyfileobj(file.file, buffer)
+#     return {"file_name": file.filename}
+
+answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid=9f4bc97f-917c-4f1d-b099-cd1d16ec7269")
+print(f'here answer.json for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
+file_path = answer.json().get("file_path").replace('django', '127.0.0.1')
+output_file_path = f"{uuid.uuid4()}loaded.mp4"
+# url = 'https://www.facebook.com/favicon.ico'
+r = requests.get(file_path, allow_redirects=True)
+open(f'./loaded/{output_file_path}', 'wb').write(r.content)
+print('WRITE')
+
+
+
+
+
 
 #0 Внимание вот такой код точно добавляет данные в reqfile.py
 #!!!! Вот такой путь не видит os.path.join('C:', 'Yand_final_sprint', 'myconverter', 'mysite', 'files', 'тест.mp4')
