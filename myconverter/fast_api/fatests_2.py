@@ -52,13 +52,15 @@ print(f' в тесте ответ после загрузки в fileupload: {re
 fd.close()
 # закидываю файл полученный от resize в таблицу fileupload через api
 
-fd = open(file_path, 'rb')
+# fd = open(file_path_after_resize, 'rb')
 try:
     print(f'start load to fileupload')
     object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5,
                    'fps': 1, 'film': film_uuid}
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", object_data,
+    #                          files={'convert_video_path': file_path_after_resize})
     response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", object_data,
-                             files={'convert_video_path': fd})
+                             convert_video_path=file_path_after_resize)
     print(f"RESULT LOAD TO FILEUPLOAD ....")
     file_path_after_load = response.json()
     print(file_path_after_load)
