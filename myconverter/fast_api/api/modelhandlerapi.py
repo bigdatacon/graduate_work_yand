@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, Header, File, UploadFile
 from services.modelhandlerservice import ModelHandler, get_modelhandler_service
 import shutil
 from fastapi import Query
+import uuid
 
 router = APIRouter()
 
@@ -14,14 +15,6 @@ async def get_model_object(
     result = await modelhandler_service.get_model_object()
     return result
 
-
-
-# @router.post("/add_one_object_to_table") - старое
-# async def add_one_object_to_table(title= Query(None, alias='title'), certificate=Query(None, alias='certificate'), file_path : Optional[str]= None,
-#         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
-# ):
-#     result = await modelhandler_service.add_one_object_to_table(title, certificate, file_path)
-#     return result
 
 @router.post("/add_one_object_to_table")
 async def add_one_object_to_table(
@@ -53,25 +46,13 @@ async def resize(input_file_path: UploadFile,
     result = await modelhandler_service.resize(input_file_path)
     return result
 
-
-@router.post("/resize_no_docker")
-async def resize_no_docker(input_file_path: UploadFile,
+@router.post("/create_object_for_converted_video")
+async def create_object_for_converted_video(convert_video_path: UploadFile, convert_model, file_id: uuid.uuid4(),
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
-    result = await modelhandler_service.resize_no_docker(input_file_path)
+    result = await modelhandler_service.create_object_for_converted_video(convert_video_path, convert_model, file_id)
     return result
 
-# @router.post("/upload")
-# def upload(file: UploadFile = File(...)):
-#     try:
-#         with open(file.filename, 'wb') as f:
-#             shutil.copyfileobj(file.file, f)
-#     except Exception:
-#         return {"message": "There was an error uploading the file"}
-#     finally:
-#         file.file.close()
-#
-#     return {"message": f"Successfully uploaded {file.filename}"}
 
 @router.post("/upload_to")
 async def root(file: UploadFile = File(...)):

@@ -49,11 +49,20 @@ response = requests.post("http://127.0.0.1:8000/fileupload/", object_data,
                          files={'file_path': fd})
 
 print(f' в тесте ответ после загрузки в fileupload: {response.status_code, response.json()}')
+fd.close()
+# закидываю файл полученный от resize в таблицу fileupload через api
 
+fd = open(file_path, 'rb')
+try:
+    print(f'start load to fileupload')
+    object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5,
+                   'fps': 1, 'film': film_uuid}
+    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", object_data,
+                             files={'convert_video_path': fd})
+    print(f"RESULT LOAD TO FILEUPLOAD ....")
+    file_path_after_load = response.json()
+    print(file_path_after_load)
+except Exception as e:
+    print(f'except in create_object_for_converted_video : {e.args}')
 
-# try:
-#     convert_model.add_one_object_to_table_no_docker(object_data, file_path_after_resize)
-#     return True
-# except Exception as e:
-#     print(f'exception in create_object_for_converted_video, CAUSE : {e.args}')
-#     return False
+fd.close()
