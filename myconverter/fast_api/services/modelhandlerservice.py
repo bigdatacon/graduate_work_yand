@@ -159,9 +159,10 @@ class ModelHandler:
 
 
 
-    async def create_object_for_converted_video(self, convert_video_path: UploadFile, convert_model, file_id):
+    async def create_object_for_converted_video(self, convert_video_path: str, convert_model, file_id):
         object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1, 'film': file_id}
         file_path_new_2 = os.path.join("/fast_api_converter", convert_video_path)
+        file_path_new_2 = open(file_path_new_2, 'rb')
 
         try:
             convert_model.add_one_object_to_table(object_data, file_path_new_2)
