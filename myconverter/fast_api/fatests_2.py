@@ -4,11 +4,19 @@ print('начат main')
 import sys
 import uuid
 
+film_uuid = os.getenv('FILM_TEST_UUID', "9f4bc97f-917c-4f1d-b099-cd1d16ec7269")
+#Получаю пробный uuid - 3 объект из базы
+# film_uuid = requests.get(f"http://127.0.0.1:8001/api/v1/modelhandlerapi/").json().get("results")[3].get("id")
+# print(f' eto film_uuid : {film_uuid}')
+
+
+
 #1 скачиваю файл, путь до видео идет почему то c django - но так сеть не видит, поэтому делаю replace на 127.0.0.1
-film_uuid="9f4bc97f-917c-4f1d-b099-cd1d16ec7269"
+# film_uuid="9f4bc97f-917c-4f1d-b099-cd1d16ec7269"
 # answer = requests.get("http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid=9f4bc97f-917c-4f1d-b099-cd1d16ec7269")
 answer = requests.get(f"http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid={film_uuid}")
-print(f'here answer.json for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
+print(f'here answer.json for get_model_object_by_id : {answer.json()}')
+print(f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
 file_path_from_database = answer.json().get("file_path").replace('django', '127.0.0.1')
 output_file_path = f"{uuid.uuid4()}loaded.mp4"
 # url = 'https://www.facebook.com/favicon.ico'
@@ -28,9 +36,9 @@ try:
                              files={'input_file_path': fd})
     print(f"RESULT RESIZE ....")
     file_path_after_resize = response.json()
-    print(file_path_after_resize)
+    print(f'file_path_after_resize : {file_path_after_resize}' )
 except Exception as e:
-    print(f'except in add_one_object_to_table : {e.args}')
+    print(f'except in resize : {e.args}')
 
 fd.close()
 
