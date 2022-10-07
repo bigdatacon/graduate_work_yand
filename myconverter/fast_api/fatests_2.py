@@ -6,7 +6,7 @@ import uuid
 
 film_uuid = os.getenv('FILM_TEST_UUID', "9f4bc97f-917c-4f1d-b099-cd1d16ec7269")
 #Получаю пробный uuid - 3 объект из базы
-# film_uuid = requests.get(f"http://127.0.0.1:8001/api/v1/modelhandlerapi/").json().get("results")[3].get("id")
+# film_uuid = requests.get(f"http://127.0.0.1:8001/api/v1/modelhandlerapi/").json().get("results")[4].get("id")
 # print(f' eto film_uuid : {film_uuid}')
 
 
