@@ -21,6 +21,9 @@ class AliceHandler:
                 return res
         return res
 
+    def return_film_data(self):
+        return fake_films_persons_db
+
 example = AliceHandler
 
 # print(f' result of function : {example.find_actor_in_fake_db(string)}')

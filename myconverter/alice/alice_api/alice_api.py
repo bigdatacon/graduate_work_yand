@@ -8,6 +8,13 @@ import uuid
 router = APIRouter()
 
 
+@router.get("/return_film_data")
+async def get_model_object(
+        alice_handler_service: AliceHandler = Depends(get_alicehandler_service),
+):
+    result = await alice_handler_service.return_film_data()
+    return result
+
 @router.get("/find_actor_in_fake_db")
 async def get_model_object(input_actor: str,
         alice_handler_service: AliceHandler = Depends(get_alicehandler_service),
