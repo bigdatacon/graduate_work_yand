@@ -3,6 +3,7 @@ import os
 print('начат main')
 import sys
 import uuid
+from services.modelhandlerservice import ModelHandler
 
 film_uuid = os.getenv('FILM_TEST_UUID', "9f4bc97f-917c-4f1d-b099-cd1d16ec7269")
 #Получаю пробный uuid - 3 объект из базы
@@ -63,6 +64,9 @@ fd.close()
 
 
 #4 закидываю файл полученный от resize в таблицу fileupload через api
+# создаю объект модели для fileupload
+convert_model = ModelHandler('http://127.0.0.1:8000/fileupload/')
+
 
 # fd = open(file_path_after_resize, 'rb')
 try:
@@ -71,8 +75,12 @@ try:
                    'fps': 1, 'film': film_uuid}
     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", object_data,
     #                          files={'convert_video_path': file_path_after_resize})
-    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", object_data,
-                             convert_video_path=file_path_after_resize)
+    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", convert_video_path=file_path_after_resize,  convert_model=  convert_model,
+                             file_id = film_uuid
+                             )
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/?convert_video_path=file_path_after_resize/?convert_model=  convert_model/?file_id = film_uuid")
+    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/?convert_video_path/?convert_model/?film_uuid")
+
     print(f"RESULT LOAD TO FILEUPLOAD ....")
     file_path_after_load = response.json()
     print(file_path_after_load)
