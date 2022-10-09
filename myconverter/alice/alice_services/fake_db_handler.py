@@ -25,6 +25,16 @@ class AliceHandler:
                 return res
         return res
 
+    async def find_actor_in_fake_db_json(self, input_actor: dict):
+        res = False
+        for k,v in fake_films_persons_db.items():
+            x = fuzz.WRatio(input_actor.get('actor').lower().replace(' ', ''), k.lower().replace(' ', ''),)
+            if x>=90:
+                print(f'here : {input_actor} : {k}, {x}')
+                res = v
+                return res
+        return res
+
     async def return_film_data(self):
         return fake_films_persons_db
 
