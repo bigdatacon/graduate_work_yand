@@ -1,8 +1,12 @@
 from functools import lru_cache
-from .fake_db import fake_films_persons_db
+# from fake_db import fake_films_persons_db
 from fuzzywuzzy import fuzz
 
-
+fake_films_persons_db = {
+    "Зеленая миля" : "Том Хэнкс",
+    "Криминальное чтиво" : "Джон Траволта"
+}
+#
 # string = 'Зеленая миля'
 # string_wrong = 'пары ры '
 # string_near = 'зеленая ми'
@@ -11,7 +15,7 @@ class AliceHandler:
     def __init__(self):
         pass
 
-    def find_actor_in_fake_db(self, input_actor: str):
+    async def find_actor_in_fake_db(self, input_actor: str):
         res = False
         for k,v in fake_films_persons_db.items():
             x = fuzz.WRatio(input_actor.lower().replace(' ', ''), k.lower().replace(' ', ''),)
@@ -21,17 +25,18 @@ class AliceHandler:
                 return res
         return res
 
-    def return_film_data(self):
+    async def return_film_data(self):
         return fake_films_persons_db
 
-example = AliceHandler
+example = AliceHandler()
 
 # print(f' result of function : {example.find_actor_in_fake_db(string)}')
 # print(f' result of wrong function : {example.find_actor_in_fake_db(string_wrong)}')
 # print(f' result of near function : {example.find_actor_in_fake_db(string_near)}')
+# print(f' result of function return_film_data : {example.return_film_data()}')
 
 
 @lru_cache()
 def get_alicehandler_service() -> AliceHandler:
-    return AliceHandler
+    return AliceHandler()
 

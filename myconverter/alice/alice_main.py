@@ -2,7 +2,7 @@ import logging
 
 import uvicorn
 from fastapi import FastAPI
-from alice_api import alice_api
+from api import alice_api
 import shutil
 import requests
 
