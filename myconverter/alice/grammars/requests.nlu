@@ -1,0 +1,19 @@
+"request": {
+    "command": "включи свет на кухне, пожалуйста",
+    "nlu": {
+      "intents": {
+        "turn.on": { // Интент.
+          "slots": {  // Список слотов.
+            "what": {
+              "type": "YANDEX.STRING",
+              "value": "свет"
+            },
+            "where": {
+              "type": "YANDEX.STRING",
+              "value": "на кухне"
+            }
+        }
+      }
+    },
+    ...
+}

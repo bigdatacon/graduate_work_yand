@@ -46,7 +46,6 @@ fd.close()
 
 #3 Закидываю файл полученный от resize в таблицу fileupload
 new_file_path = os.path.join("/fast_api_converter", file_path_after_resize)
-# new_file_path = 'http:\\fast_api_converter\\c4f70f98-e5fc-471b-95e0-1295ca6d72cb.mp4'
 resp = requests.get(new_file_path)
 print(f'eto resp json: {resp.json()}')
 
