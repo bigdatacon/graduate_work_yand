@@ -154,6 +154,17 @@ class ModelHandler:
         ffmpeg.run(stream)
         return f"{output_file_path}.mp4"
 
+    # def resize(self, input_file_path: str):
+    #     file_path = input_file_path.split('/')[-1]
+    #     output_file_path =  f"{uuid.uuid4()}"
+    #     resp = requests.get(input_file_path)
+    #     open(os.path.join("/fast_api_converter", file_path), "wb").write(resp.content)
+    #     stream =  ffmpeg.input(os.path.join("/fast_api_converter", file_path))
+    #     stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
+    #     stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
+    #     ffmpeg.run(stream)
+    #     return f"{output_file_path}.mp4"
+
 
     # async def resize_with_upload(self, object_id : str):
 
