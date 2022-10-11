@@ -45,24 +45,24 @@ fd.close()
 
 
 #3 Закидываю файл полученный от resize в таблицу fileupload
-new_file_path = os.path.join("/fast_api_converter", file_path_after_resize)
-resp = requests.get(new_file_path)
-print(f'eto resp json: {resp.json()}')
-
-try:
-    open(f'./loaded_resize/loaded_resize{file_path_after_resize}', 'wb').write(resp.content)
-except Exception as e:
-    print(f' except in upload_to file_system after resize : {e.args}')
-
-file_path = os.path.join(f'./loaded_resize/loaded_resize{file_path_after_resize}')
-fd = open(file_path, 'rb')
-object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1,
-               'film': film_uuid}
-response = requests.post("http://127.0.0.1:8000/fileupload/", object_data,
-                         files={'file_path': fd})
-
-print(f' в тесте ответ после загрузки в fileupload: {response.status_code, response.json()}')
-fd.close()
+# new_file_path = os.path.join("/fast_api_converter", file_path_after_resize)
+# resp = requests.get(new_file_path)
+# print(f'eto resp json: {resp.json()}')
+#
+# try:
+#     open(f'./loaded_resize/loaded_resize{file_path_after_resize}', 'wb').write(resp.content)
+# except Exception as e:
+#     print(f' except in upload_to file_system after resize : {e.args}')
+#
+# file_path = os.path.join(f'./loaded_resize/loaded_resize{file_path_after_resize}')
+# fd = open(file_path, 'rb')
+# object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5, 'fps': 1,
+#                'film': film_uuid}
+# response = requests.post("http://127.0.0.1:8000/fileupload/", object_data,
+#                          files={'file_path': fd})
+#
+# print(f' в тесте ответ после загрузки в fileupload: {response.status_code, response.json()}')
+# fd.close()
 
 
 
