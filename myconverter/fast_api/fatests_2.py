@@ -34,7 +34,7 @@ fd = open(file_path, 'rb')
 try:
     print(f'start resize')
     response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/resize/",
-                             files={'input_file_path': fd})
+                             files={'input_file_path': fd}, file_id=film_uuid)
     print(f"RESULT RESIZE ....")
     file_path_after_resize = response.json()
     print(f'file_path_after_resize : {file_path_after_resize}' )
@@ -69,26 +69,26 @@ fd.close()
 
 #4 закидываю файл полученный от resize в таблицу fileupload через api
 # создаю объект модели для fileupload
-convert_model = ModelHandler('http://127.0.0.1:8000/fileupload/')
-
-
-# fd = open(file_path_after_resize, 'rb')
-try:
-    print(f'start load to fileupload')
-    object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5,
-                   'fps': 1, 'film': film_uuid}
-    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", object_data,
-    #                          files={'convert_video_path': file_path_after_resize})
-    response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", convert_video_path=file_path_after_resize,  convert_model=  convert_model,
-                             file_id = film_uuid
-                             )
-    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/?convert_video_path=file_path_after_resize/?convert_model=  convert_model/?file_id = film_uuid")
-    # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/?convert_video_path/?convert_model/?film_uuid")
-
-    print(f"RESULT LOAD TO FILEUPLOAD ....")
-    file_path_after_load = response.json()
-    print(file_path_after_load)
-except Exception as e:
-    print(f'except in create_object_for_converted_video : {e.args}')
-
-fd.close()
+# convert_model = ModelHandler('http://127.0.0.1:8000/fileupload/')
+#
+#
+# # fd = open(file_path_after_resize, 'rb')
+# try:
+#     print(f'start load to fileupload')
+#     object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5,
+#                    'fps': 1, 'film': film_uuid}
+#     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", object_data,
+#     #                          files={'convert_video_path': file_path_after_resize})
+#     response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/", convert_video_path=file_path_after_resize,  convert_model=  convert_model,
+#                              file_id = film_uuid
+#                              )
+#     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/?convert_video_path=file_path_after_resize/?convert_model=  convert_model/?file_id = film_uuid")
+#     # response = requests.post("http://127.0.0.1:8001/api/v1/modelhandlerapi/create_object_for_converted_video/?convert_video_path/?convert_model/?film_uuid")
+#
+#     print(f"RESULT LOAD TO FILEUPLOAD ....")
+#     file_path_after_load = response.json()
+#     print(file_path_after_load)
+# except Exception as e:
+#     print(f'except in create_object_for_converted_video : {e.args}')
+#
+# fd.close()

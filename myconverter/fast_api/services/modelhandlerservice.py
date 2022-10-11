@@ -143,7 +143,7 @@ class ModelHandler:
     #     ffmpeg.run(stream)
     #     return f"{output_file_path}.mp4"
 
-    async def resize(self, input_file_path: UploadFile):
+    async def resize(self, input_file_path: UploadFile, file_id: str):
         filename = input_file_path.filename
         file = input_file_path.file
         output_file_path = f"{uuid.uuid4()}"
@@ -152,7 +152,21 @@ class ModelHandler:
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
         stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
         ffmpeg.run(stream)
-        return f"{output_file_path}.mp4"
+
+
+        object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5,
+                       'fps': 1, 'film': file_id}
+        file_path_new_2 = open(f"{output_file_path}.mp4")
+        try:
+            response = requests.post(f'{MODEL_LINK}fileupload/', object_data, files={'file_path': file_path_new_2})
+            if response.status_code != 201:
+                print(response.json())
+            return response.json().get('id')
+        except Exception as e:
+            print(f'except in add_one_object_to_table_fileupload in resize : {e.args}')
+            raise
+
+        return f"{output_file_path}.mp4", True
 
     # def resize(self, input_file_path: str):
     #     file_path = input_file_path.split('/')[-1]
