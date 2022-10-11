@@ -168,20 +168,42 @@ class ModelHandler:
 
         return f"{output_file_path}.mp4", True
 
-    # def resize(self, input_file_path: str):
-    #     file_path = input_file_path.split('/')[-1]
-    #     output_file_path =  f"{uuid.uuid4()}"
-    #     resp = requests.get(input_file_path)
-    #     open(os.path.join("/fast_api_converter", file_path), "wb").write(resp.content)
-    #     stream =  ffmpeg.input(os.path.join("/fast_api_converter", file_path))
-    #     stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
-    #     stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
-    #     ffmpeg.run(stream)
-    #     return f"{output_file_path}.mp4"
+    async def resize_full(self, file_id: str):
+        #1 load file from database
+        answer = requests.get(
+            f"http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid={file_id}")
+        print(f'here answer.json for get_model_object_by_id : {answer.json()}')
+        print(
+            f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
+        file_path_from_database = answer.json().get("file_path").replace('django', '127.0.0.1')
+
+        #2 open file that was loaded from database
+        print('WRITE in resize_full')
+        fd = open(file_path_from_database, 'rb')
+        output_file_path = f"{uuid.uuid4()}"
+
+        #3 send opened file to resize and do resize
+        stream =  ffmpeg.input(fd)
+        stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
+        stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
+        ffmpeg.run(stream)
 
 
-    # async def resize_with_upload(self, object_id : str):
+        object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5,
+                       'fps': 1, 'film': file_id}
+        #4 Open file after resize and try to load in fileupload
+        file_path_new_2 = open(f"{output_file_path}.mp4")
 
+        try:
+            response = requests.post(f'{MODEL_LINK}fileupload/', object_data, files={'file_path': file_path_new_2})
+            if response.status_code != 201:
+                print(response.json())
+            return response.json().get('id')
+        except Exception as e:
+            print(f'except in add_one_object_to_table_fileupload in resize_full : {e.args}')
+            raise
+
+        return f"{output_file_path}.mp4", True
 
 
     async def create_object_for_converted_video(self, convert_video_path: str, convert_model, file_id):

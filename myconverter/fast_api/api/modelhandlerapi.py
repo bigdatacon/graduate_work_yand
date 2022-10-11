@@ -46,6 +46,13 @@ async def resize(input_file_path: UploadFile,
     result = await modelhandler_service.resize(input_file_path)
     return result
 
+@router.post("/resize_full")
+async def resize(file_id: str,
+        modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
+):
+    result = await modelhandler_service.resize_full(file_id)
+    return result
+
 @router.post("/create_object_for_converted_video")
 async def create_object_for_converted_video(convert_video_path: str, convert_model, file_id,
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),

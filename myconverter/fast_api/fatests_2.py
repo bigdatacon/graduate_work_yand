@@ -11,6 +11,10 @@ film_uuid = os.getenv('FILM_TEST_UUID', "9f4bc97f-917c-4f1d-b099-cd1d16ec7269")
 # print(f' eto film_uuid : {film_uuid}')
 
 
+#0 пробую сделать сразу resize в ручке resize_full
+answer = requests.get(f"http://127.0.0.1:8001/api/v1/modelhandlerapi/resize_full/?file_id={film_uuid}")
+print(f'here answer.json for resize_full : {answer.json()}')
+
 
 #1 скачиваю файл, путь до видео идет почему то c django - но так сеть не видит, поэтому делаю replace на 127.0.0.1
 # film_uuid="9f4bc97f-917c-4f1d-b099-cd1d16ec7269"
@@ -24,6 +28,7 @@ output_file_path = f"{uuid.uuid4()}loaded.mp4"
 r = requests.get(file_path_from_database, allow_redirects=True)
 open(f'./loaded/{output_file_path}', 'wb').write(r.content)
 print('WRITE')
+
 
 
 

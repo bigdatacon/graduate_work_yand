@@ -13,7 +13,6 @@ services:
     networks:
       - movies_network
 
-
   django:
     build:
       context: mysite
