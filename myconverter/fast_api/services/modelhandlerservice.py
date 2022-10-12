@@ -170,8 +170,11 @@ class ModelHandler:
 
     async def resize_full(self, file_id: str):
         #1 load file from database
+        # answer = requests.get(
+        #     f"http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid={file_id}")
+
         answer = requests.get(
-            f"http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid={file_id}")
+            f"{API_LINK}get_model_object_by_id/?film_uuid={file_id}")
         print(f'here answer.json for get_model_object_by_id : {answer.json()}')
         print(
             f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
@@ -234,6 +237,7 @@ class ModelHandler:
 
 
 MODEL_LINK = os.getenv('MODEL_LINK', 'http://127.0.0.1:8000/')
+API_LINK = os.getenv('API_LINK', 'http://127.0.0.1:8001/api/v1/modelhandlerapi/')
 
 # @lru_cache()
 # def get_modelhandler_service() -> ModelHandler:
