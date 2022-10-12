@@ -173,8 +173,13 @@ class ModelHandler:
         # answer = requests.get(
         #     f"http://127.0.0.1:8001/api/v1/modelhandlerapi/get_model_object_by_id/?film_uuid={file_id}")
 
-        answer = requests.get(
-            f"{API_LINK}get_model_object_by_id/?film_uuid={file_id}")
+        # answer = requests.get(
+        #     f"{API_LINK}get_model_object_by_id/?film_uuid={file_id}")
+
+        answer = requests.get(f'http://127.0.0.1:8000/filmwork/{file_id}/')
+
+
+
         print(f'here answer.json for get_model_object_by_id : {answer.json()}')
         print(
             f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
