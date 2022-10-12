@@ -193,12 +193,13 @@ class ModelHandler:
         print(f' eto file_path_from_database : {file_path_from_database}')
 
         r = requests.get(file_path_from_database, allow_redirects=True)
-        open('file_path_from_database', 'wb').write(r.content)
+        output_file_path_from_database = f"{uuid.uuid4()}.mp4"
+        open(output_file_path_from_database, 'wb').write(r.content)
         print('WRITE')
 
         #2 open file that was loaded from database
         print('WRITE in resize_full')
-        fd = open('file_path_from_database', 'rb')
+        fd = open(output_file_path_from_database, 'rb')
         output_file_path = f"{uuid.uuid4()}"
 
         #3 send opened file to resize and do resize
