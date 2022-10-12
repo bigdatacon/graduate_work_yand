@@ -2,7 +2,7 @@ import random
 from typing import Optional
 import phrases
 
-from alice_services.fake_db import fake_db
+from alice_services.fake_db import fake_films_persons_db
 from api.search import SearchConnector
 from phrases import get_phrase
 
