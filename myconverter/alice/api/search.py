@@ -20,3 +20,9 @@ class SearchConnector:
         film = self._get_film_by_uuid(film_uuid)
         return film
 
+    def _get_film_by_uuid(self, film_uuid: UUID) -> Optional[Film]:
+        response = self._get_response(f"film/{film_uuid}")
+        if response.status_code != HTTPStatus.OK:
+            return None
+
+        return Film(**response.json())

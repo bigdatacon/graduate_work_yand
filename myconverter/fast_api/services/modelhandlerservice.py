@@ -184,9 +184,18 @@ class ModelHandler:
 
 
         print(f'here answer.json for get_model_object_by_id : {answer.json()}')
+        # print(
+        #     f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
+        # file_path_from_database = answer.json().get("file_path").replace('django', '127.0.0.1')
+
         print(
-            f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
-        file_path_from_database = answer.json().get("file_path").replace('django', '127.0.0.1')
+            f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path")}')
+        file_path_from_database = answer.json().get("file_path")
+        print(f' eto file_path_from_database : {file_path_from_database}')
+
+        r = requests.get(file_path_from_database, allow_redirects=True)
+        open('file_path_from_database', 'wb').write(r.content)
+        print('WRITE')
 
         #2 open file that was loaded from database
         print('WRITE in resize_full')
