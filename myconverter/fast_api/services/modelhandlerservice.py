@@ -179,7 +179,7 @@ class ModelHandler:
         # answer = requests.get(f'http://127.0.0.1:8000/filmwork/{file_id}/')
         # answer = requests.get(f'http://127.0.0.1:8000/filmwork/{file_id}/')
         print('first print in resize_full')
-        # answer = requests.get('http://django:8000/filmwork/{file_id}/')
+        # answer = requests.get(f'http://django:8000/filmwork/{file_id}/')
         answer = requests.get('http://django:8000/filmwork/9f4bc97f-917c-4f1d-b099-cd1d16ec7269/')
 
         # print(f'here answer.json for get_model_object_by_id : {answer.json()}')
