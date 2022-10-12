@@ -47,7 +47,7 @@ async def resize(input_file_path: UploadFile,
     return result
 
 @router.post("/resize_full")
-async def resize(file_id: str,
+async def resize_full(file_id: str,
         modelhandler_service: ModelHandler = Depends(get_modelhandler_service),
 ):
     result = await modelhandler_service.resize_full(file_id)
