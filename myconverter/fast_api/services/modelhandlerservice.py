@@ -203,7 +203,8 @@ class ModelHandler:
         output_file_path = f"{uuid.uuid4()}"
 
         #3 send opened file to resize and do resize
-        stream =  ffmpeg.input(fd)
+        # stream =  ffmpeg.input(fd)
+        stream = ffmpeg.input(output_file_path_from_database)
         stream = stream.filter('fps', fps=5, round = 'up').filter('scale', w=128, h=128)
         stream = ffmpeg.output(stream, f"{output_file_path}.mp4")
         ffmpeg.run(stream)
