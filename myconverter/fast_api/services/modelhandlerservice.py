@@ -179,17 +179,16 @@ class ModelHandler:
         # answer = requests.get(f'http://127.0.0.1:8000/filmwork/{file_id}/')
         # answer = requests.get(f'http://127.0.0.1:8000/filmwork/{file_id}/')
         print('first print in resize_full')
-        # answer = requests.get('http://django:8000/filmwork/9f4bc97f-917c-4f1d-b099-cd1d16ec7269/')
+        # answer = requests.get('http://django:8000/filmwork/{file_id}/')
         answer = requests.get('http://django:8000/filmwork/9f4bc97f-917c-4f1d-b099-cd1d16ec7269/')
 
-
-        print(f'here answer.json for get_model_object_by_id : {answer.json()}')
+        # print(f'here answer.json for get_model_object_by_id : {answer.json()}')
         # print(
         #     f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path").replace("django", "127.0.0.1")}')
         # file_path_from_database = answer.json().get("file_path").replace('django', '127.0.0.1')
 
-        print(
-            f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path")}')
+        # print(
+        #     f'here answer.json detail for get_model_object_by_id : {answer.json().get("file_path")}')
         file_path_from_database = answer.json().get("file_path")
         print(f' eto file_path_from_database : {file_path_from_database}')
 
@@ -199,7 +198,7 @@ class ModelHandler:
 
         #2 open file that was loaded from database
         print('WRITE in resize_full')
-        fd = open(file_path_from_database, 'rb')
+        fd = open('file_path_from_database', 'rb')
         output_file_path = f"{uuid.uuid4()}"
 
         #3 send opened file to resize and do resize
