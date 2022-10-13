@@ -210,7 +210,7 @@ class ModelHandler:
         ffmpeg.run(stream)
 
 
-        object_data = {"resolution": "convert_video", "codec_name": "convert_videotest", 'display_aspect_ratio': 5,
+        object_data = {"resolution": "convert_video_res_full", "codec_name": "resize_full", 'display_aspect_ratio': 5,
                        'fps': 1, 'film': file_id}
         #4 Open file after resize and try to load in fileupload
         file_path_new_2 = open(f"{output_file_path}.mp4", 'rb')
