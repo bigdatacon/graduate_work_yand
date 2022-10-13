@@ -56,48 +56,20 @@ services:
     depends_on:
       - postgres
 
-
-#  migration:
-#    image: uzman
-#    command: python manage.py migrate --noinput
-#    volumes:
-#      - .:/code
-#    depends_on:
-#      - postgres
-
-#  nginx:
-#    image: nginx:1.19.2
-#    container_name: nginx_movies
-#    volumes:
-#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-#      - ./nginx/conf.d:/etc/nginx/conf.d:ro
-#      - static_volume:/data:ro
-#    ports:
-#      - "80:80"
-#    networks:
-#      - movies_network
-#    depends_on:
-#      - django
+  airflow_scheduler:
+    image: docker.io/bitnami/airflow-scheduler:2
+    restart: always
+    container_name: airflow_scheduler
+    volumes:
+      airflow_scheduler_data:/airflow/scheduler_data
+      ./dags/dags:/airflow/dags
+      ./dags/requirements.txt:/airflow/requirements.txt
 
 
 volumes:
   static_volume:
   movies_streaming_converter_api:
+  airflow_scheduler_data:
 
 networks:
   movies_network:
-
-#docker exec -it django_movies python manage.py migrate
-#docker exec -it django_movies bash
-#python manage.py migrate
-#docker exec -i postgres_movies bash
-
-#2
-#docker exec -t -i postgres_movies bash
-#python manage.py makemigrations
-#python manage.py migrate
-
-
-#3
-#docker-compose exec postgres_movies python manage.py makemigrations
-#docker-compose exec postgres_movies python manage.py migrate
