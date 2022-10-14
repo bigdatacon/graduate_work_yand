@@ -3,8 +3,8 @@ from functools import lru_cache
 from fuzzywuzzy import fuzz
 
 fake_films_persons_db = {
-    "Зеленая миля" : "Том Хэнкс",
-    "Криминальное чтиво" : "Джон Траволта"
+    "зеленая миля" : "Том Хэнкс",
+    "криминальное чтиво" : "Джон Траволта"
 }
 #
 # string = 'Зеленая миля'
