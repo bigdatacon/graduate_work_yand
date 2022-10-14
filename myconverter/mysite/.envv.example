@@ -1,0 +1,7 @@
+ALLOWED_HOSTS='*'
+
+DB_NAME=converter
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=postgres
+DB_PORT=5432

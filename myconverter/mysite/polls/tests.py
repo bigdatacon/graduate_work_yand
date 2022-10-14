@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import include, path, reverse
 from rest_framework.test import APITestCase, URLPatternsTestCase
 from rest_framework import status
-from .models import Question, FilmWork, Fileupl
+from .models import FilmWork, Fileupl
 from pathlib import Path
 import requests
 import os
@@ -10,8 +10,9 @@ import os
 
 class ConnectionTests(APITestCase):
     def setUp(self):
-        self.path = 'C:\\Yand_final_sprint\\myconverter\\mysite\\files'
-        self.fd = open('C:\\Yand_final_sprint\\myconverter\\mysite\\files\\тест.mp4', 'rb')
+        self.path = os.path.join(".", "files")
+        self.row_file_path =  os.path.join(".", "files", "тест.mp4")
+        self.fd = open(self.row_file_path, 'rb')
         self.url = '/filmwork/'
         self.url_long = "http://127.0.0.1:8000/filmwork/"
         self.test_filmwork  = FilmWork.objects.create(title="test_object", certificate = 'test_sertificate')

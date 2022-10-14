@@ -1,10 +1,5 @@
-from .models import Fileupl, FilmWork, Question
+from .models import Fileupl, FilmWork
 from rest_framework import serializers
-
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = ['question_text', 'id', 'file_path']
 
 
 class FileuplSerializer(serializers.ModelSerializer):
