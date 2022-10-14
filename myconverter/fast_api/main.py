@@ -3,13 +3,12 @@ import logging
 import uvicorn
 from core.logger import LOGGING
 from fastapi import FastAPI, File, UploadFile
-from api import apitesting, modelhandlerapi
+from api import  modelhandlerapi
 import shutil
 import requests
 
 
 app = FastAPI()
-app.include_router(apitesting.router, prefix='/api/v1/apitesting')
 app.include_router(modelhandlerapi.router, prefix='/api/v1/modelhandlerapi')
 
 
