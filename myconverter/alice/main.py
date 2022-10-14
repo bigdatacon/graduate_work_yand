@@ -19,16 +19,21 @@ def handler(event, context):
         text = get_phrase(phrases.HELP)
     elif intents.get("repeat"):
         text = get_phrase(phrases.REPEAT)
+    # elif intents.get("film"):
+    #     text = get_film(intents.get("film"))
     elif intents.get("film"):
-        text = get_film(intents.get("film"))
+        text = 'том хэнкс'
     elif command:
         text = get_phrase(phrases.UNSUCCESSFUL)
 
-    response = {
-        "version": '',
-        "session": '',
-        "response": {"text": text, "end_session": ''},
-        "session_state": {"current_state": '', "last_phrase": text},
+    return {
+        'version': event['version'],
+        'session': event['session'],
+        'response': {
+            # Respond with the original request or welcome the user if this is the beginning of the dialog and the request has not yet been made.
+            'text': text,
+            # Don't finish the session after this response.
+            'end_session': 'false'
+        },
     }
 
-    return response
