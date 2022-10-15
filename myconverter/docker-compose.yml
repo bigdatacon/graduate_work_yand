@@ -24,6 +24,7 @@ services:
       - ./mysite/.env
     volumes:
       - static_volume:/data/static
+      - media_volume:/code/media
     networks:
       - movies_network
     command: python manage.py runserver 0.0.0.0:8000
@@ -95,6 +96,7 @@ services:
 
 volumes:
   static_volume:
+  media_volume:
   movies_streaming_converter_api:
   airflow_volume:
 
