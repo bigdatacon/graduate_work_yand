@@ -1,6 +1,6 @@
 import requests
-string = 'зеленая миля'
-# string = 'криминальное чтиво'
+# string = 'зеленая миля'
+string = 'криминальное чтиво'
 
 
 answer = requests.get(f"http://127.0.0.1:8002/api/v1/alice_api/find_actor_in_fake_db/?input_actor={string}")
