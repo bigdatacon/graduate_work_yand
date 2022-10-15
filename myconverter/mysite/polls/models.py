@@ -45,15 +45,3 @@ class FilmWork(TimeStampedModel):
         return f'{self.file_path}'
 
 
-class FileFilmWork(models.Model):
-    id = models.UUIDField(_('id'), primary_key=True, default=uuid.uuid4, editable=False)
-    film_work = models.ForeignKey('FilmWork', on_delete=models.CASCADE)
-    file = models.ForeignKey('Fileupl', on_delete=models.CASCADE)
-    created = models.DateTimeField(_('Created'), auto_created=True, auto_now_add=True)
-
-    class Meta:
-        verbose_name = _('FileFilmWork')
-        verbose_name_plural = _('FileFilmWork')
-        # db_table = f'"content"."file_film_work"'
-        # managed = False
-        unique_together = ('film_work', 'file')
