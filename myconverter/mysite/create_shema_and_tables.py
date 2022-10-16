@@ -1,8 +1,8 @@
 
---создание таблицы film_work
+--создание таблицы film_workmovie
 #Для POSTGRES
-drop table content.film_work CASCADE;
-CREATE TABLE IF NOT EXISTS content.film_work (
+drop table content.film_workmovie CASCADE;
+CREATE TABLE IF NOT EXISTS content.film_workmovie (
     id     uuid PRIMARY KEY,
     title         TEXT,
     description   TEXT,
@@ -31,7 +31,7 @@ CREATE TABLE content.genre_film_work (
     film_work_id uuid,
     genre_id     uuid,
     created_at   TIMESTAMP WITH TIME ZONE,
-    CONSTRAINT fk_film_work_id FOREIGN KEY(film_work_id) REFERENCES content.film_work(id),
+    CONSTRAINT fk_film_work_id FOREIGN KEY(film_work_id) REFERENCES content.film_workmovie(id),
     CONSTRAINT fk_genre_id FOREIGN KEY(genre_id) REFERENCES content.genre(id)
 );
 
@@ -53,7 +53,7 @@ CREATE TABLE content.person_film_work (
     person_id    uuid,
     role         TEXT,
     created_at   TIMESTAMP WITH TIME ZONE,
-    CONSTRAINT fk_person_film_work_id FOREIGN KEY(film_work_id) REFERENCES content.film_work(id),
+    CONSTRAINT fk_person_film_work_id FOREIGN KEY(film_work_id) REFERENCES content.film_workmovie(id),
     CONSTRAINT fk_person_id FOREIGN KEY(person_id) REFERENCES content.person(id)
 );
 

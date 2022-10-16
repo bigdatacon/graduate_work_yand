@@ -92,7 +92,7 @@ class Person(models.Model):
 
 class GenreFilmWork(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    film_work = models.ForeignKey('FilmWork', on_delete=models.CASCADE, default=None)
+    film_work = models.ForeignKey('FilmWorkMovie', on_delete=models.CASCADE, default=None)
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -111,7 +111,7 @@ class GenreFilmWork(models.Model):
 
 class PersonFilmWork(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    film_work = models.ForeignKey('FilmWork', on_delete=models.CASCADE, default=None)
+    film_work = models.ForeignKey('FilmWorkMovie', on_delete=models.CASCADE, default=None)
     person = models.ForeignKey('Person', on_delete=models.CASCADE, default=None)
     role = models.CharField(_('роль'), max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -132,7 +132,7 @@ class FilmWorkType(models.TextChoices):
 
 
 
-class FilmWork(models.Model):
+class FilmWorkMovie(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(_('Название'), max_length=255)
     description = models.TextField(_('Описание'), blank=True, null=True)
@@ -154,5 +154,5 @@ class FilmWork(models.Model):
     class Meta:
         verbose_name = _('Кинопроизведение')
         verbose_name_plural = _('Кинопроизведения')
-        db_table = "film_work"
+        db_table = "film_workmovie"
         managed = False

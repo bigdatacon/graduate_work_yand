@@ -15,7 +15,7 @@ from psycopg2.extras import DictCursor
 # ======= DATA CLASSES ==============
 
 @dataclass
-class FilmWork:
+class FilmWorkMovie:
     id:            str
     title:         str
     description:   str
@@ -58,7 +58,7 @@ class Person_film_work:
     role:    str
     created_at:    datetime.datetime
 
-#eto table_names: [('film_work',), ('genre',), ('genre_film_work',), ('person',), ('person_film_work',)]
+#eto table_names: [('film_workmovie',), ('genre',), ('genre_film_work',), ('person',), ('person_film_work',)]
 
 class PostgresSaver:
     def __init__(self, pg_conn: _connection):
@@ -71,7 +71,7 @@ class PostgresSaver:
         genre_old_and_new_ids = []
         person_old_and_new_ids = []
         # for obj in data['FilmWork']:
-        for obj in data['film_work']:
+        for obj in data['film_workmovie']:
             new_id = uuid.uuid4()
             film_work_old_and_new_ids.append({new_id: str(obj.id)})
             to_insert = (
@@ -79,7 +79,7 @@ class PostgresSaver:
                 datetime.datetime.now(), None, "movie", datetime.datetime.now(), datetime.datetime.now(), obj.rating
             )
             self.pg_cursor.execute(
-                """INSERT INTO content.film_work (id, title, description, creation_date, certificate, 
+                """INSERT INTO content.film_workmovie (id, title, description, creation_date, certificate, 
                 type, created_at, updated_at, rating  )
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", to_insert
             )
@@ -151,7 +151,7 @@ class SQLiteLoader:
         table_names = self.cursor.fetchall()
         print(f'eto table_names: {table_names}')
         data = {
-            'film_work': [],
+            'film_workmovie': [],
             'genre': [],
             'genre_film_work': [],
             'person': [],
@@ -165,13 +165,13 @@ class SQLiteLoader:
             print(f'eto len(temp) : {len(temp)}')
             i = 0
             for obj in temp:
-                if table_name[0] == "film_work":
+                if table_name[0] == "film_workmovie":
                     if temp[i][5] != "N/A":
                         rating = temp[i][5]
                     else:
                         rating = 0
                     data[table_name[0]].append(
-                        FilmWork(
+                        FilmWorkMovie(
                             id = temp[i][0],
                             title = temp[i][1],
                             description = temp[i][2],

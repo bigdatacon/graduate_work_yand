@@ -5,8 +5,8 @@ CREATE DATABASE movies;
 
 CREATE SCHEMA content;
 
-drop table content.film_work CASCADE;
-CREATE TABLE content.film_work (
+drop table content.film_workmovie CASCADE;
+CREATE TABLE content.film_workmovie (
     id            UUID PRIMARY KEY,
     title         TEXT,
     description   TEXT,
@@ -35,7 +35,7 @@ CREATE TABLE content.genre_film_work (
     genre_id     UUID,
     created_at   TIMESTAMP WITH TIME ZONE,
 
-    CONSTRAINT fk_film_work_id FOREIGN KEY(film_work_id) REFERENCES content.film_work(id),
+    CONSTRAINT fk_film_work_id FOREIGN KEY(film_work_id) REFERENCES content.film_workmovie(id),
     CONSTRAINT fk_genre_id FOREIGN KEY(genre_id) REFERENCES content.genre(id)
 );
 
@@ -56,6 +56,6 @@ CREATE TABLE content.person_film_work (
     person_id    UUID,
     role         TEXT,
     created_at   TIMESTAMP WITH TIME ZONE,
-    CONSTRAINT fk_person_film_work_id FOREIGN KEY(film_work_id) REFERENCES content.film_work(id),
+    CONSTRAINT fk_person_film_work_id FOREIGN KEY(film_work_id) REFERENCES content.film_workmovie(id),
     CONSTRAINT fk_person_id FOREIGN KEY(person_id) REFERENCES content.person(id)
 );
