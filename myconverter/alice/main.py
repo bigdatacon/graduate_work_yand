@@ -101,11 +101,16 @@ intents = event.get("request", {}).get("nlu", {}).get("intents", {})
 print(f' eto intents: {intents}')
 value = intents.get('film.on').get("slots").get('where').get('value')
 print(f' eto value: {value}')
-# for k,v in fake_films_persons_db.items():
-#     if k==value:
-#         var = v
-#         print(f'herre {k , var, value}')
+actor = "Джон Траволта"
 
+#информация по актеру на простой базе
+for k,v in fake_films_persons_db.items():
+    if v==actor:
+        var = k
+        print(f'herre simple {k , var, actor}')
+
+
+#информация по названию фильма
 def find_film_info(input_film: str):
     rating = None
     genre = None
@@ -125,6 +130,8 @@ def find_film_info(input_film: str):
 # print(find_film_info(value))
 
 input_actor = 'Джони Депп'
+
+#информация по актеру
 def find_film_actor(input_actor: str):
     film_list = []
     all_list = []
