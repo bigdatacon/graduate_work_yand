@@ -194,6 +194,14 @@ def find_film_actor_match(input_actor: str):
                     all_list.append(el)
     return film_list[0]
 
+def find_film_rating(input_rating: str):
+    film_list = []
+    for el in fake_films_persons_db_full:
+        if float(el.get('rating')) >=float(input_rating):
+            film_list.append(el)
+    return film_list
+
+
 print(f' eto find_film_actor : {find_film_actor(input_actor)}')
 print(f' eto find_film_actor_match : {find_film_actor_match(input_actor)}')
 
@@ -241,6 +249,9 @@ def handler(event, context):
     elif intents.get("actorm.on"):
         value = intents.get('actorm.on').get("slots").get('who').get('value')
         text2 = str(find_film_actor_match(value))
+    elif intents.get("rating.on"):
+        value = intents.get('rating.on').get("slots").get('who').get('value')
+        text2 = str(find_film_rating(value))
         # for k,v in fake_films_persons_db.items():
         #     if v==value:
         #         text2 = k
@@ -266,4 +277,6 @@ def handler(event, context):
             'end_session': 'false'
         },
     }
+
+
 
