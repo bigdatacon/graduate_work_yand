@@ -16,7 +16,7 @@ event = {
   },
   "session": {
     "message_id": 0,
-    "session_id": "7e7a64c5-f49c-45a6-b57c-e99f2342beda",
+    "session_id": "7ac4c21e-be2c-4c58-8870-2cc623910d28",
     "skill_id": "60b900ed-90b0-41ab-af3a-b4c9290b8960",
     "user": {
       "user_id": "CAD2EBA89C2756D74ABA199C679A756854EC1A4688FF0BDFC14604E40C3C6CA4"
@@ -24,24 +24,36 @@ event = {
     "application": {
       "application_id": "16D619CE73E09E2FFE05F73E0FA3F41A8A083810F7802C342F3A558005265C34"
     },
-    "user_id": "16D619CE73E09E2FFE05F73E0FA3F41A8A083810F7802C342F3A558005265C34",
-    "new": True
+    "new": True,
+    "user_id": "16D619CE73E09E2FFE05F73E0FA3F41A8A083810F7802C342F3A558005265C34"
   },
   "request": {
-    "command": "кто играл в фильме зеленая миля",
-    "original_utterance": "кто играл в фильме зеленая миля",
+    "command": "в каких фильмах снимался джон траволта",
+    "original_utterance": "в каких фильмах снимался Джон Траволта?",
     "nlu": {
       "tokens": [
-        "кто",
-        "играл",
         "в",
-        "фильме",
-        "зеленая",
-        "миля"
+        "каких",
+        "фильмах",
+        "снимался",
+        "джон",
+        "траволта"
       ],
-      "entities": [],
+      "entities": [
+        {
+          "type": "YANDEX.FIO",
+          "tokens": {
+            "start": 4,
+            "end": 6
+          },
+          "value": {
+            "first_name": "джон",
+            "last_name": "траволта"
+          }
+        }
+      ],
       "intents": {
-        "film.on": {
+        "actorm.on": {
           "slots": {
             "what": {
               "type": "YANDEX.STRING",
@@ -49,15 +61,31 @@ event = {
                 "start": 3,
                 "end": 4
               },
-              "value": "фильме"
+              "value": "снимался"
+            },
+            "intro": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 0,
+                "end": 2
+              },
+              "value": "в каких"
             },
             "where": {
+              "type": "YANDEX.STRING",
+              "tokens": {
+                "start": 2,
+                "end": 3
+              },
+              "value": "фильмах"
+            },
+            "who": {
               "type": "YANDEX.STRING",
               "tokens": {
                 "start": 4,
                 "end": 6
               },
-              "value": "зеленая миля"
+              "value": "джон траволта"
             }
           }
         }
@@ -98,16 +126,16 @@ print(f' eto event : {event}')
 intents = event.get("request", {}).get("nlu", {}).get("intents", {})
 
 
-print(f' eto intents: {intents}')
-value = intents.get('film.on').get("slots").get('where').get('value')
-print(f' eto value: {value}')
-actor = "Джон Траволта"
+# print(f' eto intents: {intents}')
+# value = intents.get('film.on').get("slots").get('where').get('value')
+# print(f' eto value: {value}')
+# actor = "Джон Траволта"
 
 #информация по актеру на простой базе
-for k,v in fake_films_persons_db.items():
-    if v==actor:
-        var = k
-        print(f'herre simple {k , var, actor}')
+# for k,v in fake_films_persons_db.items():
+#     if v==actor:
+#         var = k
+#         print(f'herre simple {k , var, actor}')
 
 
 #информация по названию фильма
@@ -129,7 +157,8 @@ def find_film_info(input_film: str):
 
 # print(find_film_info(value))
 
-input_actor = 'Джони Депп'
+input_actor = intents.get('actorm.on').get("slots").get('who').get('value')
+print(f' here input_actor from slots : {input_actor}')
 
 #информация по актеру
 def find_film_actor(input_actor: str):
@@ -149,24 +178,38 @@ def find_film_actor(input_actor: str):
                     all_list.append(el)
     return film_list, all_list
 
+def find_film_actor_match(input_actor: str):
+    film_list = []
+    all_list = []
+    for el in fake_films_persons_db_full:
+        for k, v in el.items():
+            if k == 'actor':
+                if input_actor.lower().replace(' ', '')==v.lower().replace(' ', ''):
+                    print(f'here in full actor : {input_actor} : {k},  {el}, {el.get("rating")}')
+                    film = el.get("film")
+                    rating = el.get("rating")
+                    genre = el.get("genre")
+                    all = el
+                    film_list.append(film)
+                    all_list.append(el)
+    return film_list[0]
 
 print(f' eto find_film_actor : {find_film_actor(input_actor)}')
-
-
+print(f' eto find_film_actor_match : {find_film_actor_match(input_actor)}')
 
 
 def handler(event, context):
     fake_db = {
-    "на кухне" : "люстра",
-    "в коридоре" : "лампа"
+        "на кухне": "люстра",
+        "в коридоре": "лампа"
     }
     fake_films_persons_db = {
-    "зеленая миля" : "Том Хэнкс",
-    "криминальное чтиво" : "Джон Траволта"
+        "зеленая миля": "том хэнкс",
+        "криминальное чтиво": "джон траволта"
     }
+
     # current_state = event.get("state", {}).get("session", {}).get("current_state", {})
     # last_phrase = event.get("state", {}).get("session", {}).get("last_phrase")
-
 
     intents = event.get("request", {}).get("nlu", {}).get("intents", {})
     command = event.get("request", {}).get("command")
@@ -185,15 +228,30 @@ def handler(event, context):
     #     text = get_film(intents.get("film"))
     elif intents.get("film.on"):
         value = intents.get('film.on').get("slots").get('where').get('value')
-        for k,v in fake_films_persons_db.items():
-            if k==value:
+        for k, v in fake_films_persons_db.items():
+            if k == value:
                 text2 = v
+
+    # elif intents.get("actor.on"):
+    #     value = intents.get('actor.on').get("slots").get('person').get('value')
+    #     for k,v in fake_films_persons_db.items():
+    #         if v==value:
+    #             text2 = k
+
+    elif intents.get("actorm.on"):
+        value = intents.get('actorm.on').get("slots").get('who').get('value')
+        text2 = str(find_film_actor_match(value))
+        # for k,v in fake_films_persons_db.items():
+        #     if v==value:
+        #         text2 = k
+
     elif intents.get("turn.on"):
         text = 'том хэнкс turn.on'
         value = intents.get('turn.on').get("slots").get('where').get('value')
-        for k,v in fake_db.items():
-            if k==value:
+        for k, v in fake_db.items():
+            if k == value:
                 text2 = v
+
 
     elif command:
         text = get_phrase(phrases.UNSUCCESSFUL)
