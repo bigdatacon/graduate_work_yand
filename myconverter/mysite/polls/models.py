@@ -6,6 +6,11 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from model_utils.models import TimeStampedModel
 
+from datetime import datetime
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.translation import gettext_lazy as _
+
+
 
 
 class Fileupl(TimeStampedModel):
