@@ -6,9 +6,6 @@
 
 [Click here](docs/presentation)
 
-## Demo
-
-[Click here](https://disk.yandex.ru/d/blR08VPSGQ_ytA)
 
 ## Architecture
 
