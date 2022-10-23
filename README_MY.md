@@ -14,5 +14,5 @@
 
 #демонстрация алисы 
 docs/АЛИСА ДЕМО.mp4
-[ALICE DEMO](docs/АЛИСА ДЕМО.mp4)
+[ALICE DEMO](docs/[АЛИСА ДЕМО.mp4](https://disk.yandex.ru/i/_hTeYH6OyCe1TQ))
 
