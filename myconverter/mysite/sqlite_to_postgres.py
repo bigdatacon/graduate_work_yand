@@ -37,8 +37,8 @@ class Genre:
 @dataclass
 class Genre_film_work:
     id:            str
-    film_work_id:         str
-    genre_id:   str
+    film_work:         str
+    genre:   str
     created_at: datetime.datetime
 
 @dataclass
@@ -53,8 +53,8 @@ class Person:
 @dataclass
 class Person_film_work:
     id:            str
-    film_work_id:         str
-    person_id:   str
+    film_work:         str
+    person:   str
     role:    str
     created_at:    datetime.datetime
 
@@ -98,13 +98,13 @@ class PostgresSaver:
             film_work_id = None
             genre_id = None
             for film_work_old_and_new_id in film_work_old_and_new_ids:
-                if str(genre_film_work.film_work_id) in film_work_old_and_new_id.values():
+                if str(genre_film_work.film_work) in film_work_old_and_new_id.values():
                     film_work_id = list(film_work_old_and_new_id.keys())[0]
                     print(f'here film_work_id : {film_work_id}')
                     break
 
             for genre_old_and_new_id in genre_old_and_new_ids:
-                if str(genre_film_work.genre_id) in genre_old_and_new_id.values():
+                if str(genre_film_work.genre) in genre_old_and_new_id.values():
                     genre_id = list(genre_old_and_new_id.keys())[0]
                     print(f'here genr.id : {genre_id }')
                     break
@@ -127,13 +127,13 @@ class PostgresSaver:
             film_work_id = None
             person_id = None
             for film_work_old_and_new_id in film_work_old_and_new_ids:
-                if str(person_film_work.film_work_id) in film_work_old_and_new_id.values():
+                if str(person_film_work.film_work) in film_work_old_and_new_id.values():
                     film_work_id = list(film_work_old_and_new_id.keys())[0]
                     # print(f'here film_work_id : {film_work_id}')
                     break
 
             for person_old_and_new_id in person_old_and_new_ids:
-                if str(person_film_work.person_id) in person_old_and_new_id.values():
+                if str(person_film_work.person) in person_old_and_new_id.values():
                     person_id = list(person_old_and_new_id.keys())[0]
                     # print(f'here genr.id : {genre_id }')
                     break
