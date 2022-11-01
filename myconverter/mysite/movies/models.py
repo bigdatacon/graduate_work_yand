@@ -1,4 +1,5 @@
 from django.db import models
+
 # Create your models here.
 import uuid
 # https://www.youtube.com/watch?v=fsVY66QBhwM
@@ -14,11 +15,14 @@ from django.utils.translation import gettext_lazy as _
 
 
 
-"""модели для базы фильмов из sqlite"""
-
 class Gender(models.TextChoices):
     MALE = 'male', _('мужской')
     FEMALE = 'female', _('женский')
+
+class FilmWorkType(models.TextChoices):
+    MOVIE = 'movie', _('movie')
+    TV_SHOW = 'tv_show', _('TV Show')
+
 
 
 class Genre(models.Model):
@@ -37,24 +41,6 @@ class Genre(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-
-class Person(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    full_name = models.CharField(_('имя'), max_length=50)
-    birth_date = models.DateTimeField(_('дата рождения'))
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = _('Персона')
-        verbose_name_plural = _('Персоны')
-        db_table = "person"
-        managed = False
-
-    def __str__(self):
-        return f"{self.full_name}"
-
-
 class GenreFilmWork(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     film_work = models.ForeignKey('FilmWorkMovie', on_delete=models.CASCADE, default=None)
@@ -70,9 +56,21 @@ class GenreFilmWork(models.Model):
     def __str__(self):
         return f"{self.film_work_id} - {self.genre_id}"
 
+class Person(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    full_name = models.CharField(_('имя'), max_length=50)
+    # birth_date = models.DateTimeField(_('дата рождения'))
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = _('Персона')
+        verbose_name_plural = _('Персоны')
+        db_table = "person"
+        managed = False
 
-
+    def __str__(self):
+        return f"{self.full_name}"
 
 class PersonFilmWork(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -89,12 +87,6 @@ class PersonFilmWork(models.Model):
 
     def __str__(self):
         return f"{self.role}"
-
-
-class FilmWorkType(models.TextChoices):
-    MOVIE = 'movie', _('movie')
-    TV_SHOW = 'tv_show', _('TV Show')
-
 
 
 class FilmWorkMovie(models.Model):
@@ -121,3 +113,7 @@ class FilmWorkMovie(models.Model):
         verbose_name_plural = _('Кинопроизведения')
         db_table = "film_workmovie"
         managed = False
+
+
+
+
