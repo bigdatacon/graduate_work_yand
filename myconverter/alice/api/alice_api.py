@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get("/return_film_data")
-async def get_model_object(
+async def get_model_object_data(
         alice_handler_service: AliceHandler = Depends(get_alicehandler_service),
 ):
     result = await alice_handler_service.return_film_data()
@@ -26,7 +26,7 @@ async def get_model_object(input_actor: str,
 
 
 @router.get("/find_actor_in_fake_db_json")
-async def get_model_object(input_actor: dict,
+async def get_model_object_json(input_actor: dict,
         alice_handler_service: AliceHandler = Depends(get_alicehandler_service),
 ):
     result = await alice_handler_service.find_actor_in_fake_db_json(input_actor)

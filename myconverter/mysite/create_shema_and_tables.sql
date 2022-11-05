@@ -10,6 +10,8 @@ CREATE DATABASE movies;
 
 
 \c movies;
+-- \c converter;  - Это именно когда базы с фильмами добавляются в DATABASE для конвертации
+\c converter;
 
 
 CREATE SCHEMA content;

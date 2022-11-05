@@ -215,8 +215,10 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):
 
 if __name__ == '__main__':
     print(datetime.datetime.now())
-    """то что ниже работает для докера через билд"""
-    dsl = {'dbname': 'movies', 'user': 'postgres', 'password': 'postgres', 'host': '127.0.0.1', 'port': 5432}
+    """то что ниже работает для докера через билд """
+    # dsl = {'dbname': 'movies', 'user': 'postgres', 'password': 'postgres', 'host': '127.0.0.1', 'port': 5432}
+
+    dsl = {'dbname': 'converter', 'user': 'postgres', 'password': 'postgres', 'host': '127.0.0.1', 'port': 5432}
     """то что ниже работает для докера через файл rundocker"""
     # dsl = {'dbname': 'movies2', 'user': 'postgres', 'password': '123', 'host': '127.0.0.1', 'port': 5433}
     with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
