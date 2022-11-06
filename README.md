@@ -1,4 +1,9 @@
 ![flake8](https://github.com/fuodorov/graduate_work/actions/workflows/flake8.yml/badge.svg)
+Это описание финального проекта яндекс практикума (курс мидл питон разработчик). Фнальный проект выполнялся в группе. 
+
+Также я добавил свою упрощенную реализацию финального проекта в которой реализован текстовый поиск в базе с использование ЯНДЕКС АЛИСЫ. 
+Описание моей реализации 
+[README_MY](README_MY)
 
 # Online Movies
 
@@ -6,9 +11,6 @@
 
 [Click here](docs/presentation)
 
-## Demo
-
-[Click here](https://disk.yandex.ru/d/blR08VPSGQ_ytA)
 
 ## Architecture
 
