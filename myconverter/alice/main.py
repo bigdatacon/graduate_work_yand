@@ -3,140 +3,12 @@ from movies import get_film
 from phrases import get_phrase
 from fuzzywuzzy import fuzz
 
-event = {
-  "meta": {
-    "locale": "ru-RU",
-    "timezone": "UTC",
-    "client_id": "ru.yandex.searchplugin/7.16 (none none; android 4.4.2)",
-    "interfaces": {
-      "screen": {},
-      "payments": {},
-      "account_linking": {}
-    }
-  },
-  "session": {
-    "message_id": 0,
-    "session_id": "7ac4c21e-be2c-4c58-8870-2cc623910d28",
-    "skill_id": "60b900ed-90b0-41ab-af3a-b4c9290b8960",
-    "user": {
-      "user_id": "CAD2EBA89C2756D74ABA199C679A756854EC1A4688FF0BDFC14604E40C3C6CA4"
-    },
-    "application": {
-      "application_id": "16D619CE73E09E2FFE05F73E0FA3F41A8A083810F7802C342F3A558005265C34"
-    },
-    "new": True,
-    "user_id": "16D619CE73E09E2FFE05F73E0FA3F41A8A083810F7802C342F3A558005265C34"
-  },
-  "request": {
-    "command": "в каких фильмах снимался джон траволта",
-    "original_utterance": "в каких фильмах снимался Джон Траволта?",
-    "nlu": {
-      "tokens": [
-        "в",
-        "каких",
-        "фильмах",
-        "снимался",
-        "джон",
-        "траволта"
-      ],
-      "entities": [
-        {
-          "type": "YANDEX.FIO",
-          "tokens": {
-            "start": 4,
-            "end": 6
-          },
-          "value": {
-            "first_name": "джон",
-            "last_name": "траволта"
-          }
-        }
-      ],
-      "intents": {
-        "actorm.on": {
-          "slots": {
-            "what": {
-              "type": "YANDEX.STRING",
-              "tokens": {
-                "start": 3,
-                "end": 4
-              },
-              "value": "снимался"
-            },
-            "intro": {
-              "type": "YANDEX.STRING",
-              "tokens": {
-                "start": 0,
-                "end": 2
-              },
-              "value": "в каких"
-            },
-            "where": {
-              "type": "YANDEX.STRING",
-              "tokens": {
-                "start": 2,
-                "end": 3
-              },
-              "value": "фильмах"
-            },
-            "who": {
-              "type": "YANDEX.STRING",
-              "tokens": {
-                "start": 4,
-                "end": 6
-              },
-              "value": "джон траволта"
-            }
-          }
-        }
-      }
-    },
-    "markup": {
-      "dangerous_context": False
-    },
-    "type": "SimpleUtterance"
-  },
-  "state": {
-    "session": {},
-    "user": {},
-    "application": {}
-  },
-  "version": "1.0"
-}
-
-# fake_films_persons_db = {
-#     "на кухне" : "люстра",
-#     "в коридоре" : "лампа"
-# }
-
-fake_films_persons_db = {
-    "зеленая миля" : "Том Хэнкс",
-    "криминальное чтиво" : "Джон Траволта"
-}
-
 fake_films_persons_db_full = [
     {'film' : 'зеленая миля', 'rating' : '8.2', 'actor': 'Том Хэнкс', 'genre' : 'драма'},
     {'film' : 'криминальное чтиво', 'rating' : '7.7', 'actor': 'Джон Траволта', 'genre' : 'комедия'},
     {'film' : 'пираты карибского моря', 'rating' : '9.4', 'actor': 'Джони Депп', 'genre' : 'комедия'},
     {'film' : 'страх и ненависть в Лас-Вегасе', 'rating' : '6.5', 'actor': 'Джони Депп', 'genre' : 'комедия'}
 ]
-
-
-print(f' eto event : {event}')
-intents = event.get("request", {}).get("nlu", {}).get("intents", {})
-
-
-# print(f' eto intents: {intents}')
-# value = intents.get('film.on').get("slots").get('where').get('value')
-# print(f' eto value: {value}')
-# actor = "Джон Траволта"
-
-#информация по актеру на простой базе
-# for k,v in fake_films_persons_db.items():
-#     if v==actor:
-#         var = k
-#         print(f'herre simple {k , var, actor}')
-
 
 #информация по названию фильма
 def find_film_info(input_film: str):
@@ -155,10 +27,6 @@ def find_film_info(input_film: str):
                     return rating, genre, all
     return rating, genre, all
 
-# print(find_film_info(value))
-
-input_actor = intents.get('actorm.on').get("slots").get('who').get('value')
-print(f' here input_actor from slots : {input_actor}')
 
 #информация по актеру
 def find_film_actor(input_actor: str):
@@ -202,8 +70,6 @@ def find_film_rating(input_rating: str):
     return film_list
 
 
-print(f' eto find_film_actor : {find_film_actor(input_actor)}')
-print(f' eto find_film_actor_match : {find_film_actor_match(input_actor)}')
 
 
 def handler(event, context):
@@ -240,21 +106,12 @@ def handler(event, context):
             if k == value:
                 text2 = v
 
-    # elif intents.get("actor.on"):
-    #     value = intents.get('actor.on').get("slots").get('person').get('value')
-    #     for k,v in fake_films_persons_db.items():
-    #         if v==value:
-    #             text2 = k
-
     elif intents.get("actorm.on"):
         value = intents.get('actorm.on').get("slots").get('who').get('value')
         text2 = str(find_film_actor_match(value))
     elif intents.get("rating.on"):
         value = intents.get('rating.on').get("slots").get('who').get('value')
         text2 = str(find_film_rating(value))
-        # for k,v in fake_films_persons_db.items():
-        #     if v==value:
-        #         text2 = k
 
     elif intents.get("turn.on"):
         text = 'том хэнкс turn.on'
@@ -262,7 +119,6 @@ def handler(event, context):
         for k, v in fake_db.items():
             if k == value:
                 text2 = v
-
 
     elif command:
         text = get_phrase(phrases.UNSUCCESSFUL)
