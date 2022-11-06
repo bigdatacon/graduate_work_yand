@@ -27,7 +27,6 @@ def find_film_info(input_film: str):
                     return rating, genre, all
     return rating, genre, all
 
-
 #информация по актеру
 def find_film_actor(input_actor: str):
     film_list = []
@@ -82,8 +81,7 @@ def handler(event, context):
         "криминальное чтиво": "джон траволта"
     }
 
-    # current_state = event.get("state", {}).get("session", {}).get("current_state", {})
-    # last_phrase = event.get("state", {}).get("session", {}).get("last_phrase")
+
 
     intents = event.get("request", {}).get("nlu", {}).get("intents", {})
     command = event.get("request", {}).get("command")
@@ -98,13 +96,13 @@ def handler(event, context):
         text = get_phrase(phrases.HELP)
     elif intents.get("repeat"):
         text = get_phrase(phrases.REPEAT)
-    # elif intents.get("film"):
-    #     text = get_film(intents.get("film"))
+
     elif intents.get("film.on"):
         value = intents.get('film.on').get("slots").get('where').get('value')
         for k, v in fake_films_persons_db.items():
             if k == value:
                 text2 = v
+
 
     elif intents.get("actorm.on"):
         value = intents.get('actorm.on').get("slots").get('who').get('value')
@@ -120,6 +118,7 @@ def handler(event, context):
             if k == value:
                 text2 = v
 
+
     elif command:
         text = get_phrase(phrases.UNSUCCESSFUL)
 
@@ -133,6 +132,3 @@ def handler(event, context):
             'end_session': 'false'
         },
     }
-
-
-
