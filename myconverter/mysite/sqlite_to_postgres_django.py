@@ -82,7 +82,7 @@ class PostgresSaver:
                 datetime.datetime.now(),  "movie", datetime.datetime.now(), datetime.datetime.now(), obj.rating
             )
             self.pg_cursor.execute(
-                """INSERT INTO content.film_workmovie (id, title, description, creation_date, 
+                """INSERT INTO film_workmovie (id, title, description, creation_date, 
                 type, created_at, updated_at, rating  )
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""", to_insert
             )
@@ -91,7 +91,7 @@ class PostgresSaver:
             genre_old_and_new_ids.append({new_id: obj_actors.id})
 
             to_insert = (new_id, obj_actors.name, obj_actors.description, obj_actors.created_at, obj_actors.updated_at)
-            self.pg_cursor.execute("""INSERT INTO content.genre (id, name, description, created_at, updated_at)
+            self.pg_cursor.execute("""INSERT INTO genre (id, name, description, created_at, updated_at)
                 VALUES (%s, %s, %s, %s, %s)""", to_insert)
             print(f' did INSERT in genre')
         for genre_film_work in data['genre_film_work']:
@@ -111,7 +111,7 @@ class PostgresSaver:
             new_id = uuid.uuid4()
             to_insert = (new_id, film_work_id, genre_id, genre_film_work.created_at)
             if film_work_id and genre_id:
-                self.pg_cursor.execute("""INSERT INTO content.genre_film_work (id, film_work_id, genre_id, created_at)
+                self.pg_cursor.execute("""INSERT INTO genre_film_work (id, film_work_id, genre_id, created_at)
                     VALUES (%s, %s, %s, %s)""", to_insert)
 
         for obj_actors in data['person']:
@@ -119,7 +119,7 @@ class PostgresSaver:
             person_old_and_new_ids.append({new_id: obj_actors.id})
 
             to_insert = (new_id, obj_actors.full_name, obj_actors.created_at, obj_actors.updated_at)
-            self.pg_cursor.execute("""INSERT INTO content.person (id, full_name, created_at, updated_at )
+            self.pg_cursor.execute("""INSERT INTO person (id, full_name, created_at, updated_at )
                 VALUES (%s, %s, %s, %s)""", to_insert)
 
 
@@ -142,10 +142,10 @@ class PostgresSaver:
             # print(f' eto to_insert in person_film_work : {to_insert}')
             if film_work_id and person_id:
                 try:
-                    self.pg_cursor.execute("""INSERT INTO content.person_film_work (id, film_work_id, person_id, role, created_at)
+                    self.pg_cursor.execute("""INSERT INTO person_film_work (id, film_work_id, person_id, role, created_at)
                         VALUES (%s, %s, %s, %s, %s)""", to_insert)
                 except Exception as e:
-                    print(f'except in  INSERT INTO content.person_film_work : {e.args}')
+                    print(f'except in  INSERT INTO person_film_work : {e.args}')
 
 class SQLiteLoader:
     def __init__(self, connection: sqlite3.Connection):
